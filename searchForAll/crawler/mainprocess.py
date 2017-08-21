@@ -19,5 +19,13 @@ def keywordSearch(keyword):
 		mo = importlib.import_module('.'.join(['searchForAll','crawler','extractors', k]))
 		response+=(mo.process(v))
 		#print v
+	#根据url去重
+	sortedResponse={}
+	for result in response:
+		sortedResponse[result.get('url')]=result
+	response=[]
+	for k,v in sortedResponse.items():
+		response.append(v)
+
 
 	return response
