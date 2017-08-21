@@ -1,0 +1,8 @@
+这个文件夹用来放搜索提取脚本
+脚本输出搜索内容的json格式，输出urlinfo数组   urlinfos={[{url:xxx,title:xxx,infos:xxx,imgurl:xxx,fromdomain:xxx},{url:xxx,title:xxx,infos:xxx,imgurl:xxx}...]}
+输入搜索url
+统一执行process方法
+
+
+
+需要文件权限控制
