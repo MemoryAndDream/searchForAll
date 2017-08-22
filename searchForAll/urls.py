@@ -20,6 +20,7 @@ import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^hello$', views.hello),
-url(r'^searchResult$', views.searchResult),
+url(r'^searchResult', views.searchResult),
+url(r'^addproxy', views.addproxy),
 
 ]

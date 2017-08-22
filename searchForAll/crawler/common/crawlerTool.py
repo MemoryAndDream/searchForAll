@@ -12,9 +12,10 @@ import os
 import cookielib
 import json
 from lxml import etree
+import Queue
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
+import threading
 
 #下一步升级：将proxy，cookie做入类变量处理 用字典处理cookie覆盖
 #用字典构造
@@ -59,7 +60,7 @@ class crawlerTool:
                                       userAgent)
                 else:
                     method.add_header('User-Agent',
-                                  'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36')
+                                  'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0')
                 method.add_header('Accept-Language', 'en-US,en;q=0.5')
                 result = opener.open(method, timeout=10)
                 page_buf = result.read()
@@ -118,7 +119,7 @@ class crawlerTool:
 
     # 获取xpath 要判断一下输入类型，或者异常处理
     @staticmethod
-    def getXpath(xpath, content):
+    def getXpath(xpath, content):   #xptah操作貌似会把中文变成转码&#xxxx;  /text()变unicode编码
         tree = etree.HTML(content)
         out = []
         results = tree.xpath(xpath)
@@ -129,10 +130,16 @@ class crawlerTool:
                 out.append(etree.tostring(result))
         return out
 
-    #去掉<>里的内容
+    #去掉<>里的内容  这个方法会导致转义字符变回去！！！坑爹
     @staticmethod
     def extractorText(content):
-        return re.sub('(<.*?>)',"",content)
+        if type(content)==type([]):
+            rs=''
+            for record in content:
+                rs+=(re.sub('(<[^>]*?>)',"",record))
+            return rs
+        return re.sub('(<[^>]*?>)',"",content)
+
 
 
     # 获取跳转链接
@@ -232,6 +239,29 @@ class crawlerTool:
                 return f.read()
         pass
 
+    def threadRequest(self,urls):
+
+
+        '''同步访问多条链接'''
+        response={}
+        # 初始化队列
+        myqueue = Queue.Queue(maxsize=0)  # 设置maxsize<=0则不限制大小
+        def getPages():
+            while not myqueue.empty():  # 等进程完了也就完了
+                url = myqueue.get()
+                response['url']=self.getPage(url)
+        for url in urls:
+            myqueue.put(url)
+
+        threadnum = len(urls)  # 尝试过的50个线程 直接print>>f写法是可以的,用queue输出比较慢。。  或者应该用锁来作输出
+        threads = []
+        for i in range(threadnum):
+            t = threading.Thread(target=getPages)
+            t.start()
+            threads.append(t)
+        for i in range(threadnum):
+            threads[i].join(5)  # join看是不是都执行完了
+        return response
 
 
 
@@ -277,6 +307,8 @@ def keywordSearch(maxPageNum,keyword,proxy=''):
 
 #需要输入关键字和最大页数 输出hostingurl列表 这脚本只覆盖playlist链接
 
+
+
 def main():
   pass
 
@@ -296,10 +328,18 @@ if __name__ == '__main__':
       "hide_flag2" : 0,
      "duration":225
    }
-    print ct.getPage('https://www.baidu.com/s?wd=%E5%88%86%E9%9A%94%E5%8F%B7')
+    print ct.threadRequest(['https://www.bing.com/search?q=%E5%91%B5%E5%91%B5','https://www.baidu.com/s?wd=python'])
+
+    #keyword=urllib.quote('呵呵')
+    #page= ct.getPage('https://stackoverflow.com/search?q=%E4%B8%AD%E6%96%87')
+    #print page
+    #with open('1.html','w') as f:
+    #    f.write(page)
    # print json.dumps(data)
    # print ct.getPageByJson('http://192.168.1.72:8080/VTServiceFK/service/updateVideoInfo',data=data)
-    sys.exit()
-    print ct.getDirectUrl('http://v.qq.com/page/c/b/4/c0361j0fab4.html')
-    keywordSearch(1,"simpsons full episode")
+    #print ct.getXpath('//title',page)
+    #print ct.getXpath('//title/text()',page)#这个输出很奇怪 bing是 u'\x6e\x5b'这样的，国内是u'\uxxxx' 说明国内外网站默认编码不同，页面上写的utf8是解码方式,不过一个是unicode变utf8，一个是str变utf8
+    #sys.exit()
+    #print ct.getDirectUrl('http://v.qq.com/page/c/b/4/c0361j0fab4.html')
+    #keywordSearch(1,"simpsons full episode")
 

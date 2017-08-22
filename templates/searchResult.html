@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title>Title</title>
 </head>
 <body>
 <ul>
 {% for urlinfo in urlinfos %}
-    <li><h2><a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a></h2></li>
+    <li><h3><a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a></h3></li>
     <div> {{ urlinfo.info }}</div>
 {% endfor %}
 </ul>
+
+
+<div>
+
+     {% for i in pagenums %}
+    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}">{{ i }}</a>
+
+       {% endfor %}
+
+
+
+</div>
 </body>
 </html>
