@@ -27,7 +27,7 @@ def searchResult(request):
 	urlinfos=mainprocess.keywordSearch(keyword,page,type)
 	#urlinfo1={"url":"http://www.baidu.com/link?url=966OdUyxuwFJoAYx_XGYq7_FiVLcej4qEA3Q84e-lLAtLPRGGHA6tsNFNsTN9zka&wd=&eqid=a64931cc000026c3000000035994fd9e","title":"python Django教程 之模板渲染、循环、条件判断、常用的..._博客园","info":'在 W3School,您将找到许多可以在线编辑并测试的 jQuery 实例。 jQuery 实例jQuery 参考手册 在W3School,您将找到包含所有 jQuery 对象和函数的完整参考手册。 jQuery...'}
 	#urlinfos.append(urlinfo1)
-	list=range(8)
+	list=[i+1 for i in range(8)]
 	context = {}
 	context['urlinfos'] = urlinfos
 	context['pagenums'] = list
@@ -36,10 +36,8 @@ def searchResult(request):
 	return render(request, 'searchResult.html', context)
 
 
-def addproxy(request):
+def addproxy(request):#传入代理的分隔符设置为 ‘;’  curl 'http://localhost:8000/addproxy' -d 'proxy=192.168.200.252:3127%3B192.168.222%3B5555'
 	proxyContent = request.POST.get('proxy')
-	for proxy in proxyContent.split('\n'):
-		print proxy
-		storeProxy.store(proxy)
-
+	proxys=proxyContent.split(';')
+	storeProxy.store(proxys)
 	return HttpResponse('ok')

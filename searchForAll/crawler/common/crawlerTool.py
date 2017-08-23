@@ -63,7 +63,7 @@ class crawlerTool:
                                   'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0')
                 method.add_header('Accept-Language', 'en-US,en;q=0.5')
                 result = opener.open(method, timeout=10)
-                page_buf = result.read()
+                page_buf = result.read().decode('utf8')
                 return page_buf
             except urllib2.URLError, reason:
                 return str(reason)
@@ -101,7 +101,7 @@ class crawlerTool:
                                   'Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36')
                 method.add_header('Accept-Language', 'en-US,en;q=0.5')
                 result = opener.open(method, timeout=10)
-                page_buf = result.read()
+                page_buf = result.read().encode('utf8')
                 return page_buf
             except urllib2.URLError, reason:
                 return str(reason)

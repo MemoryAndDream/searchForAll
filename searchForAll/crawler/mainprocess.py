@@ -4,11 +4,15 @@ import urllib
 import threading
 import Queue
 #后面：去重功能 结果穿插排序功能 生成翻页地址 默认的页面自动解析 同步访问 代理访问（统一就是一个访问接口/函数，接受一堆链接去同步调各种代理访问，响应结果） 同一网站多入口
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 def keywordSearch(keyword,page='1',type='0'):
 	TYPES={'0':'searchEngine','1':'movie','2':'music','3':'novel','4':'news','5':'code'}
 	print keyword
-	keyword = urllib.quote(keyword.encode('utf8'))
+	keyword = urllib.quote(keyword.encode('utf8'))  #输入的是str
+	print keyword
 	type=str(type)
 	page=int(page)
 	if type == '0':
@@ -20,7 +24,7 @@ def keywordSearch(keyword,page='1',type='0'):
 	elif type == '5':
 		SITES = {
 			'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, str(page)),
-		}  # 域名和模块对应关系
+		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
 
 	else:
 		SITES = {

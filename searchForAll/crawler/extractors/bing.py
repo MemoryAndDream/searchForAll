@@ -2,8 +2,8 @@
 from ..common import crawlerTool as ct
 from HTMLParser import HTMLParser#这个出来是unicode的格式，后面没法弄
 import sys
-
-
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 #bing 没编码，xpath text()结果是\xe5\xe2\x80\x98\xb5\xe5\xe2\x80\x98\xb5  是要从字节码编成str xpath结果是unicode，需要先encode('unicode-escape')再处理
 #百度是unicode编码 u'\u5206\u9694', u'\u7b26\u201c\xb7\u201d\u662f\u600e
@@ -12,7 +12,7 @@ import sys
 #相对导入不能超过最高层
 def process(url):
 	urlinsfos=[]#bing页面结果与百度不同 百度输出已经是\uxxx格式了 bing还是\xe1格式(str) 所以需要先解码成unicode
-	page = ct.crawlerTool.getPage(url).decode('utf8')#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
+	page = ct.crawlerTool.getPage(url)#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
 	#print page
 	segments = ct.crawlerTool.getXpath('//li[@class="b_algo"]',page)#这个xpath可以过滤掉很多广告。。
 	#print segments
