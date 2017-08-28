@@ -21,6 +21,11 @@ def keywordSearch(keyword,page='1',type='0'):
 			'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,str(page*10+1),page)
 
 		}  # 域名和模块对应关系
+	elif type == '1':
+		SITES = {
+			'taobao': 'https://s.taobao.com/search?q=%s&data-value=%s' % (keyword, str((page-1)*44)),
+		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
+
 	elif type == '5':
 		SITES = {
 			'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, str(page)),

@@ -20,6 +20,8 @@ import threading
 #下一步升级：将proxy，cookie做入类变量处理 用字典处理cookie覆盖
 #用字典构造
 
+
+
 class requestPars:
     PROXY = 'proxy'
     USER_AGENT = 'userAgent'
@@ -309,14 +311,24 @@ def keywordSearch(maxPageNum,keyword,proxy=''):
 
 
 
-def main():
-  pass
+instanceList = []
 
+def new_instance():
+    newInstance = crawlerTool()
+    instanceList.append(newInstance)
+    return newInstance
+
+originInstance = new_instance()
+getPage = originInstance.getPage
+getPageByJson = originInstance.getPageByJson
+getRegex = originInstance.getRegex
+getXpath = originInstance.getXpath
+extractorText = originInstance.extractorText
 
 
 
 if __name__ == '__main__':
-
+    sys.exit()
     ct=crawlerTool()
     data=       {
      "keyid": "abcdefghijk2ml2n83",
@@ -328,8 +340,8 @@ if __name__ == '__main__':
       "hide_flag2" : 0,
      "duration":225
    }
-    print ct.threadRequest(['https://www.bing.com/search?q=%E5%91%B5%E5%91%B5','https://www.baidu.com/s?wd=python'])
-
+    #print ct.threadRequest(['https://www.bing.com/search?q=%E5%91%B5%E5%91%B5','https://www.baidu.com/s?wd=python'])
+    print getPage('https://www.bing.com')
     #keyword=urllib.quote('呵呵')
     #page= ct.getPage('https://stackoverflow.com/search?q=%E4%B8%AD%E6%96%87')
     #print page
