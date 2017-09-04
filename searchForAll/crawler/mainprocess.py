@@ -15,7 +15,7 @@ def keywordSearch(keyword,page='1',type='0'):
 	print keyword
 	type=str(type)
 	page=int(page)
-	if type == '0':
+	if type == '0' or type == 'null':
 		SITES = {
 			'baidu': 'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,str(page*10)),
 			'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,str(page*10+1),page)
@@ -23,8 +23,14 @@ def keywordSearch(keyword,page='1',type='0'):
 		}  # 域名和模块对应关系
 	elif type == '1':
 		SITES = {
-			'taobao': 'https://s.taobao.com/search?q=%s&data-value=%s' % (keyword, str((page-1)*44)),
+			'taobao': 'https://s.taobao.com/search?q=%s&s=%s' % (keyword, str((page-1)*44)),
+
+			'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1))
 		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
+	elif type == '2':
+		SITES = {
+			'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,str(page*100))
+		}
 
 	elif type == '5':
 		SITES = {
@@ -66,7 +72,7 @@ def keywordSearch(keyword,page='1',type='0'):
 
 	for t in li:
 		t.join()  # 一定要join，不然主线程比子线程跑的快，会拿不到结果
-		print t.get_result()
+		#print t.get_result()
 		response += t.get_result()
 
 

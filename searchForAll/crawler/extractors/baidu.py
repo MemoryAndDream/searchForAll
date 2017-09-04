@@ -19,7 +19,12 @@ def process(url):
 			urlinfo={}
 			urlinfo['url']= ct.crawlerTool.getXpath('//a[1]/@href',segment)[0]#好像是/text()会起到转码功能
 			urlinfo['title'] = ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//a[1]//text()',segment))
-			urlinfo['info'] =  ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[@class ="c-abstract"]//text()', segment))
+			urlinfo['info'] =  ct.crawlerTool.getXpath('//div[@class ="c-abstract"]', segment)[0]
+			print urlinfo['info']
+			urlinfo['info-date'] =  ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//span[@class="newTimeFactor_before_abs m"]//text()', segment))
+			urlinfo['info-txt'] =  ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[@class ="c-abstract"]//text()', segment))
+			urlinfo['info-url'] =  ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[@class ="c-abstract"]//text()', segment))
+
 			#print urlinfo['url'],urlinfo['title'],urlinfo['info']
 			#info里有分隔符的时候出错
 			urlinsfos.append(urlinfo)

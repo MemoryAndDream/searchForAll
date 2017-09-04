@@ -26,7 +26,7 @@ def process(url):
 		#print title,HTMLParser().unescape(title)
 		#print ct.crawlerTool.getXpath('//h2/a[1]', segment)#解码后&#183;好像变乱码了
 		urlinfo['title'] = title
-		urlinfo['info'] = HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]))
+		urlinfo['info'] = ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]
 		print urlinfo['url'], urlinfo['title'], urlinfo['info']
 		urlinsfos.append(urlinfo)
 	return urlinsfos

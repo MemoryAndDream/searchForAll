@@ -5,7 +5,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import re
-
+import traceback
 # 摘取所要数据
 def parsePage( html):
 	ilt=[]
@@ -14,14 +14,18 @@ def parsePage( html):
 		tlt = re.findall(r'\"raw_title\"\:\".*?\"', html)
 		npl = re.findall(r'\"view_sales\"\:\"[\d]*', html)
 		nid = re.findall(r'\"nid\"\:\"[\d]*', html)
+		imglinks=re.findall(r'"pic_url":".*?"', html)
 		for i in range(len(plt)):
 			price = eval(plt[i].split(':', 1)[1])
 			title = eval(tlt[i].split(':', 1)[1])
 			num = eval(npl[i].split(':"', 1)[1])
-			url = 'https://detail.tmall.com/item.htm?id='+nid
-			ilt.append({'price':price, 'num':num, 'title':title,'url':url})
+			url = 'https://detail.tmall.com/item.htm?id='+str(eval(nid[i].split(':"', 1)[1]))
+			imglink=imglinks[i].split(':', 1)[1].replace('"','')
+
+			ilt.append({'price':price, 'num':num, 'title':title,'url':url,'imglink':imglink})
 		return ilt
 	except:
+		traceback.print_exc()
 		print("摘取数据出错").encode('utf-8')
 		return None
 
@@ -29,23 +33,27 @@ def parsePage( html):
 def process(url):
 	urlinsfos=[]
 	page = ct.crawlerTool.getPage(url)
-	segments = ct.crawlerTool.getXpath('//li[@class="b_algo"]',page)#这个xpath可以过滤掉很多广告。。
+	segments = parsePage(page)
 	#print segments
 	for segment in segments:
 		#print segment
-		segment=segment.replace('&#183;','')
 		urlinfo={}
-		urlinfo['url']= ct.crawlerTool.getXpath('//h2/a[1]/@href',segment)[0]
+		urlinfo['url']= segment.get('url')
+		urlinfo['title'] =  segment.get('title')
+		if 'tmall' in urlinfo['url']:
+			urlinfo['title']=urlinfo['title']+'-天猫'
+			urlinfo['source'] = 'tmall'
+		else:
+			urlinfo['title'] = urlinfo['title'] + '-淘宝'
+			urlinfo['source'] = 'taobao'
+		urlinfo['info'] = '价格%s元 购买数量%s'%(segment.get('price'),segment.get('num'))
+		urlinfo['imglink'] =  segment.get('imglink')
 
-		title = HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//h2/a[1]', segment)[0]))#好像不转str格式后面输出是乱码S
-
-		urlinfo['title'] = title
-		urlinfo['info'] = HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]))
-		print urlinfo['url'], urlinfo['title'], urlinfo['info']
+		#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
 		urlinsfos.append(urlinfo)
 	return urlinsfos
 
 
 
 def test():
-	return process("https://www.bing.com/search?q=python&pc=MOZI&form=MOZSBR")
+	return process("https://s.taobao.com/search?q=python")

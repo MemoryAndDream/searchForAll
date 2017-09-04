@@ -3,8 +3,11 @@
 <head>
 <meta charset=" utf-8">
 <meta name="author" content="http://www.softwhy.com/" />
-<title>搜索框关键字智能匹配实例代码</title>
+<title>一键搜索</title>
 <style>
+
+
+/*以后要做的是：左右分割 多余折叠 字体修正 我至少要看的懂百度的效果*/
 div.maincontent {
 margin-left:50px;
 
@@ -12,34 +15,66 @@ margin-left:50px;
 }
 
 
-body, ul, li {
+body {
 	margin: 0;
 	padding: 0;
+	font-family:'Microsoft Yahei',"simsun";
+	font-weight:normal;
+
+}
+ul, li{
+list-style: outside none none;
 }
 
-body {
-font-family: arial;
-	font-size: 16px;
-	font-family: sumsun, arial;
-	background: #FFFFFF;
-}
 
 a {
     font-style: normal;
 font-size: 16px;
 }
 em {
-  color: #c00;
+    color: #c00;
     font-style: normal;
 }
+a em {
+    text-decoration: underline;
+}
+cite {
+    color: green;
+    font-style: normal;
+}
+.m, a.m {
+    color: #666;
+}
+a.m:visited {
+    color: #606;
+}
+
+img {
+    max-height: 220px;
+    max-width: 220px;
+}
+#head .headBlock {
+        height: 55px;
+    padding: 0 0 0 10px;
+
+}
+
 .gover_search {
+width: 100%;
 font-size: 20px;
-	position: relative;
+	position: fixed;
+	left: 0;
+  	top: 0px;
 	z-index: 99;
 	height: 63px;
 	padding: 15px 0 0 20px;
-	border: 1px solid #b8cfe6;
 	border-bottom: 0;
+	background-color: white;
+}
+
+.searchResult{
+
+
 }
 
 .gover_search_form {
@@ -48,41 +83,38 @@ font-size: 20px;
 
 .gover_search .search_t {
 	float: left;
-	width: 112px;
 	line-height: 26px;
 	color: #666;
 }
 
 .gover_search .input_search_key {
-	float: left;
-	width: 462px;
-	height: 18px;
-	padding: 3px;
-	margin-right: 5px;
-	border: 1px solid #ccc;
-	line-height: 18px;
-	background: #fff;
+   background: transparent none repeat scroll 0 0;
+    font: 16px/22px arial;
+    height: 32px;
+    width:526px;
+    margin: 6px 0 0 7px;
+    outline: 0 none;
+    padding: 0;
+    border-color: #b8b8b8 transparent #ccc #b8b8b8;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
 }
 
 .gover_search .search_btn {
-	float: left;
-	width: 68px;
-	height: 26px;
-	overflow: hidden;
-	border: 1px solid #ccc;
-	text-align: center;
-	color: #ff3300;
-	letter-spacing: 5px;
-	cursor: pointer;
-	font-weight: bold;
-}
+   background-color: #ddd;
+    background-position: 0 -48px;
+    border: 0 none;
+    cursor: pointer;
+    font-size: 14px;
+    height: 32px;
+    padding: 0;
+    width: 95px;
+    }
 
 .gover_search .search_suggest {
-	position: absolute;
 	z-index: 999;
-	left: 132px;
-	top: 41px;
-	width: 468px;
+	left: 132px;/*这个应该看图大小*/
 	border: 1px solid #ccc;
 	border-top: none;
 	display: none;
@@ -127,11 +159,18 @@ margin-top:60px;
 
 
 </style>
+
+
 </head>
 <body>
+<div id="head"><div class="headBlock"></div>
+	</div>
+
+
+
 	<div class="gover_search">
 		<div class="gover_search_form clearfix">
-			<span class="search_t">关键词匹配搜索</span> <input type="text"
+			<!--<span class="search_t">一键搜索</span>这里需要的是图--> <input type="text"
 				class="input_search_key" id="gover_search_key"
 				placeholder="请输入关键词直接搜索" />
 			<button type="submit" class="search_btn" id="search_btn" onclick="doSearchByInput()">搜索</button>
@@ -176,13 +215,19 @@ margin-top:60px;
 
 	</script>
 	<script type="text/javascript">
+	function getQueryString(name) {
+var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+var r = window.location.search.substr(1).match(reg);
+if (r != null) return unescape(r[2]); return null;
+}
+
 	function doSearch(keyword){//搜索动作
-		alert(keyword);
+		window.location.replace("searchResult?kw="+encodeURI(keyword)+"&type="+getQueryString("type"));
 		}
 	function doSearchByInput(){//搜索动作
 		var keyword=$("#gover_search_key").val()
 		//alert(keyword);
-		window.location.replace("searchResult?kw="+encodeURI(keyword));
+		window.location.replace("searchResult?kw="+encodeURI(keyword)+"&type="+getQueryString("type"));
 		}
 		function oSearchSuggest(searchFuc) {
 			var input = $('#gover_search_key');
@@ -191,8 +236,9 @@ margin-top:60px;
 			var init = function() {
 				input.bind('keyup', sendKeyWord);
 				input.bind('blur', function() {
+					//console.log('blur');
 					setTimeout(hideSuggest, 100);
-				})
+				}) //这里如果时间太短 会导致li的点击事件无法执行，点击也触发了失去焦点的事件,而且是先执行，，因为点下去就触发了，鼠标抬起来才是click，但此时框已经消失。。。
 			}
 			var hideSuggest = function() {
 				suggestWrap.hide();
@@ -258,11 +304,11 @@ margin-top:60px;
 				//suggestWrap = $('#gov_search_suggest');
 
 				//为下拉选项绑定鼠标事件
-				suggestWrap.find('li').on('click', function() {
-					alert('click');
+				suggestWrap.find('li').on('mousedown', function() {//原来是click，但是会弱后于blur事件导致选择框消失，so
+					//alert('click');
 					//$(this).find("span").remove();
 					input.val(this.innerHTML);
-					doSearch(this.innerHTML)
+					doSearch(this.innerHTML);
 					suggestWrap.hide();
 				}).hover(function() {
 					suggestWrap.find('li').removeClass('hover');
@@ -284,7 +330,7 @@ margin-top:60px;
 					+encodeURI(keyword) + '&cb=demo';//这里是要请求的跨域的地址 我写的是百度搜索的跨域地址
 
 			// 将组合好的带src的script标签追加到body里 //这样应该就会在接下来执行了？这地方很奇怪，貌似是新增的js才会执行，这里没删除js
-			document.body.appendChild(script);//感觉应该是对象丢失了
+			document.body.appendChild(script);//感觉应该是对象丢失了  应该需要重新绑定一把？
 			//将返回的数据传递给实现搜索输入框的输入提示js类
 
 		}

@@ -31,6 +31,7 @@ def searchResult(request):
 	context = {}
 	context['urlinfos'] = urlinfos
 	context['pagenums'] = list
+	context['type'] = type
 	#print urlinfos
 
 	return render(request, 'searchResult2.html', context)

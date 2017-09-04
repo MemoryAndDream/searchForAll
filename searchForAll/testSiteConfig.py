@@ -1,6 +1,6 @@
 #coding=utf8
 import importlib
 
-mo =importlib.import_module('.'.join(["crawler",'extractors','baidu']))
+mo =importlib.import_module('.'.join(["crawler",'extractors','google']))
 
-print mo.process("https://www.baidu.com/s?wd=%E5%88%86%E9%9A%94%E5%8F%B7")
+print mo.process("https://www.google.co.kr/search?q=%E8%B0%B7%E6%AD%8C%E7%88%B8%E7%88%B8&start=40")
