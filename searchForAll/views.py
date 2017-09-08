@@ -34,7 +34,7 @@ def searchResult(request):
 	context['type'] = type
 	#print urlinfos
 
-	return render(request, 'searchResult2.html', context)
+	return render(request, 'searchEngine.html', context)
 
 
 def addproxy(request):#传入代理的分隔符设置为 ‘;’  curl 'http://localhost:8000/addproxy' -d 'proxy=192.168.200.252:3127%3B192.168.222%3B5555'
@@ -42,3 +42,7 @@ def addproxy(request):#传入代理的分隔符设置为 ‘;’  curl 'http://l
 	proxys=proxyContent.split(';')
 	storeProxy.store(proxys)
 	return HttpResponse('ok')
+
+def home(request):
+
+    return render(request, 'homePage.html', {})

@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^hello$', views.hello),
 url(r'^searchResult', views.searchResult),
 url(r'^addproxy', views.addproxy),
+url(r'^home', views.home),
 
 ]
+
