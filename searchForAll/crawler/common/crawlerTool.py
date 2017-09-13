@@ -328,7 +328,7 @@ extractorText = originInstance.extractorText
 
 
 if __name__ == '__main__':
-    sys.exit()
+   # sys.exit()
     ct=crawlerTool()
     data=       {
      "keyid": "abcdefghijk2ml2n83",
@@ -341,7 +341,9 @@ if __name__ == '__main__':
      "duration":225
    }
     #print ct.threadRequest(['https://www.bing.com/search?q=%E5%91%B5%E5%91%B5','https://www.baidu.com/s?wd=python'])
-    print getPage('https://www.bing.com')
+    page = getPage('https://www.pornhub.su/rss').encode('utf8')
+    #print getXpath('//link',page)
+    print re.findall('link>(.*?viewkey.*?)<',page)
     #keyword=urllib.quote('呵呵')
     #page= ct.getPage('https://stackoverflow.com/search?q=%E4%B8%AD%E6%96%87')
     #print page
