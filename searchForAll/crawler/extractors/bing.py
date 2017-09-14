@@ -2,6 +2,7 @@
 from ..common import crawlerTool as ct
 from HTMLParser import HTMLParser#这个出来是unicode的格式，后面没法弄
 import sys
+import traceback
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -17,18 +18,22 @@ def process(url):
 	segments = ct.crawlerTool.getXpath('//li[@class="b_algo"]',page)#这个xpath可以过滤掉很多广告。。
 	#print segments
 	for segment in segments:
-		#print segment
-		segment=segment.replace('&#183;','')
-		urlinfo={}
-		urlinfo['url']= ct.crawlerTool.getXpath('//h2/a[1]/@href',segment)[0]
+		try:
+			#print segment
+			segment=segment.replace('&#183;','')
+			urlinfo={}
+			urlinfo['url']= ct.crawlerTool.getXpath('//h2/a[1]/@href',segment)[0]
 
-		title = HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//h2/a[1]', segment)[0]))#好像不转str格式后面输出是乱码S
-		#print title,HTMLParser().unescape(title)
-		#print ct.crawlerTool.getXpath('//h2/a[1]', segment)#解码后&#183;好像变乱码了
-		urlinfo['title'] = title
-		urlinfo['info'] = ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]
-		print urlinfo['url'], urlinfo['title'], urlinfo['info']
-		urlinsfos.append(urlinfo)
+			title = HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//h2/a[1]', segment)[0]))#好像不转str格式后面输出是乱码S
+			#print title,HTMLParser().unescape(title)
+			#print ct.crawlerTool.getXpath('//h2/a[1]', segment)#解码后&#183;好像变乱码了
+			urlinfo['title'] = title
+			urlinfo['info'] = ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]
+			#print urlinfo['url'], urlinfo['title'], urlinfo['info']
+			urlinsfos.append(urlinfo)
+		except:
+			traceback.print_exc()
+			
 	return urlinsfos
 
 
