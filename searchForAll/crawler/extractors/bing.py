@@ -33,7 +33,7 @@ def process(url):
 			urlinsfos.append(urlinfo)
 		except:
 			traceback.print_exc()
-			
+
 	return urlinsfos
 
 

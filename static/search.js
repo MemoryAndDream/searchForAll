@@ -30,12 +30,14 @@ if (r != null) return unescape(r[2]); return null;
 }
 
 	function doSearch(keyword){//搜索动作
-		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+getQueryString("type"));
+	    type=$('input:radio[name="searchType"]:checked').val();
+		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
 		}
 	function doSearchByInput(){//搜索动作
-		var keyword=$("#gover_search_key").val()
+		var keyword=$("#gover_search_key").val();
 		//alert(keyword);
-		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+getQueryString("type"));
+		type=$('input:radio[name="searchType"]:checked').val();
+		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
 		}
 		function oSearchSuggest(searchFuc) {
 			var input = $('#gover_search_key');

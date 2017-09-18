@@ -65,7 +65,7 @@ def keywordSearch(keyword,page='1',type='0'):
 		mo = importlib.import_module('.'.join(['searchForAll','crawler','extractors', k]))#这个地方需要并发
 #		response+=(mo.process(v))
 		t = MyThread(mo.process,args=[v])
-		print v
+		#print v
 		li.append(t)
 		t.start()
 

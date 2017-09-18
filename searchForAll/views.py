@@ -20,8 +20,8 @@ def search(request):
 
 def searchResult(request):
 	keyword=request.GET['kw']
-	page = request.GET.get('page',1)
-	type = request.GET.get('type',0)
+	page = request.GET.get('page','1')
+	type = request.GET.get('type','0')
 
 	urlinfos=[]
 	urlinfos=mainprocess.keywordSearch(keyword,page,type)
@@ -33,7 +33,8 @@ def searchResult(request):
 	context['pagenums'] = list
 	context['type'] = type
 	#print urlinfos
-
+	if type == '1':
+		return render(request, 'shoppingResult.html', context)
 	return render(request, 'searchEngine.html', context)
 
 
