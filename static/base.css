@@ -183,6 +183,15 @@ float: left; /*span向左浮动*/
     font-size: 14px;
     display: block;/*这个必须加*/
 }
+#pagenum .pc_next {
+float: left; /*span向左浮动*/
+ border: 1px solid #e1e2e3;
+    cursor: pointer;
+    height: 34px;
+    font-size: 14px;
+    display: block;/*这个必须加*/
+}
+
 #pagenum  a{
 
     text-align: center;

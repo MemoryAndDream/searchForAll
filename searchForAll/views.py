@@ -32,6 +32,7 @@ def searchResult(request):
 	context['urlinfos'] = urlinfos
 	context['pagenums'] = list
 	context['type'] = type
+	context['page'] = int(page)
 	#print urlinfos
 	if type == '1':
 		return render(request, 'shoppingResult.html', context)
