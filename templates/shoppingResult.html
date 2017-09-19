@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+ 
+{% block mainbody %}
+
+<div class="shoppingContent">
+    <div class="m-itemlist" >
+        <div class="items">
+
+    {% for urlinfo in urlinfos %}
+            <div class="item" >
+                <div class="pic-box J_MouseEneterLeave J_PicBox">
+                <div class="pic-box-inner">
+                <div class="pic">
+                <a  target="_blank"  href="{{ urlinfo.url }}">
+                {% if urlinfo.imglink %}
+                        <img src="{{urlinfo.imglink}}"  class="J_ItemPic img" alt="{{ urlinfo.title }}">
+                {% endif %}
+                </a>
+                </div>
+                </div>
+                </div>
+                <div class="item_title"> <a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a></div>
+
+                     <div class="iteminfo"> {{ urlinfo.info|safe}}</div>
+            </div>
+
+
+
+    {% endfor %}
+<div class="clear"></div>
+            </div>
+</div>
+<div>
+    <br/>
+<div id="pagenum">
+
+    {% for i in pagenums %}
+    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
+
+        <span class="pc"> {{ i }}</span>
+       </a>
+
+       {% endfor %}
+
+
+
+</div>
+
+{% endblock %}
+
+
+
