@@ -1,25 +1,25 @@
-		var aData = [];
+var aData = [];
 
-		// 2.步骤二
-		// 定义demo函数 (分析接口、数据)
-		function demo(data) {
-			//var Ul = document.getElementById('ul');
-			var html = '';
-			aData = [];
-			// 如果搜索数据存在 把内容添加进去
-			if (data.s.length) {
-				// 隐藏掉的ul显示出来
-				//Ul.style.display = 'block';
-				// 搜索到的数据循环追加到li里
-				for (var i = 0; i < data.s.length; i++) {
-					//html += '<li>' + data.s[i] + '</li>';<span class="num_right">约100个</span>
-					aData.push(data.s[i])
-				}
-				searchSuggest.dataDisplay(aData);
-				// 循环的li写入ul
-				//        Ul.innerHTML = html;
-			}
-		}
+// 2.步骤二
+// 定义demo函数 (分析接口、数据)
+function demo(data) {
+    //var Ul = document.getElementById('ul');
+    var html = '';
+    aData = [];
+    // 如果搜索数据存在 把内容添加进去
+    if (data.s.length) {
+        // 隐藏掉的ul显示出来
+        //Ul.style.display = 'block';
+        // 搜索到的数据循环追加到li里
+        for (var i = 0; i < data.s.length; i++) {
+            //html += '<li>' + data.s[i] + '</li>';<span class="num_right">约100个</span>
+            aData.push(data.s[i])
+        }
+        searchSuggest.dataDisplay(aData);
+        // 循环的li写入ul
+        //        Ul.innerHTML = html;
+    }
+}
 
 
 
@@ -30,13 +30,15 @@ if (r != null) return unescape(r[2]); return null;
 }
 
 	function doSearch(keyword){//搜索动作
-	    type=$('input:radio[name="searchType"]:checked').val();
+	    type=$("input[name='searchType'][type='radio']:checked").val();
+
+
 		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
 		}
 	function doSearchByInput(){//搜索动作
 		var keyword=$("#gover_search_key").val();
 		//alert(keyword);
-		type=$('input:radio[name="searchType"]:checked').val();
+		type=$("input[name='searchType'][type='radio']:checked").val();
 		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
 		}
 		function oSearchSuggest(searchFuc) {
@@ -149,3 +151,7 @@ if (r != null) return unescape(r[2]); return null;
 
 		}
 
+type = getQueryString('type')
+if($('#radio'+type)){
+   $('#radio'+type).attr("checked",true);
+}

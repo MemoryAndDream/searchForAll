@@ -55,7 +55,7 @@ def process(url):
 				if imglink:
 					imglink = imglink[0]
 				else:imglink=None
-			urlinfo['info'] = '价格%s元'%(data_price)
+			urlinfo['info'] = '价格<em>%s</em>元'%(data_price)
 			urlinfo['imglink'] =  imglink
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']

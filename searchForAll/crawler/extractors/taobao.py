@@ -32,7 +32,7 @@ def process(url):
 				urlinfo['source'] = 'taobao'
 			num=segment.get('view_sales','0')
 			price = segment["view_price"]
-			urlinfo['info'] = '价格%s元 购买数量%s'%(price,num)
+			urlinfo['info'] = '价格<em>%s</em>元 购买数量<em>%s</em>'%(price,num)
 			urlinfo['imglink'] = segment["pic_url"]
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
