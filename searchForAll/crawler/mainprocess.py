@@ -24,8 +24,8 @@ def keywordSearch(keyword,page='1',type='0'):
 	elif type == '1':
 		SITES = {
 			'taobao': 'https://s.taobao.com/search?q=%s&s=%s' % (keyword, str((page-1)*44)),
-
-			'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1))
+			'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1)),
+			'amazon':'https://www.amazon.cn/s/ref=nb_sb_noss_1?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Daps&rh=i%3Aaps%2Ck%3A'+keyword+'&page='+str(page)
 		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
 	elif type == '2':
 		SITES = {
@@ -73,7 +73,9 @@ def keywordSearch(keyword,page='1',type='0'):
 	for t in li:
 		t.join()  # 一定要join，不然主线程比子线程跑的快，会拿不到结果
 		#print t.get_result()
-		response += t.get_result()
+		rs = t.get_result()
+		if rs:
+			response += rs
 
 
 	#print v
@@ -82,8 +84,9 @@ def keywordSearch(keyword,page='1',type='0'):
 	for result in response:
 		sortedResponse[result.get('url')]=result
 	response=[]
-	for k,v in sortedResponse.items():
+	for k,v in sortedResponse.items():#暂且根据长度排列？
 		response.append(v)
 
+	#response需要来个智能排序
 
 	return response

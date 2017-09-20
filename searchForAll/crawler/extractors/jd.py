@@ -6,28 +6,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import re
 import traceback
-# 摘取所要数据
-def parsePage( html):
-	ilt=[]
-	try:
-		plt = re.findall(r'data-price=".*?"', html)
-		tlt = re.findall(r'\"raw_title\"\:\".*?\"', html)
-		npl = re.findall(r'\"view_sales\"\:\"[\d]*', html)
-		nid = re.findall(r'\"nid\"\:\"[\d]*', html)
-		imglinks=re.findall(r'"pic_url":".*?"', html)
-		for i in range(len(plt)):
-			price = eval(plt[i].split('=', 1)[1])
-			title = eval(tlt[i].split(':', 1)[1])
-			num = eval(npl[i].split(':"', 1)[1])
-			url = 'https://detail.tmall.com/item.htm?id='+str(eval(nid[i].split(':"', 1)[1]))
-			imglink=imglinks[i].split(':', 1)[1].replace('"','')
 
-			ilt.append({'price':price, 'num':num, 'title':title,'url':url,'imglink':imglink})
-		return ilt
-	except:
-		traceback.print_exc()
-		print("摘取数据出错").encode('utf-8')
-		return None
 
 
 def process(url):
@@ -47,6 +26,12 @@ def process(url):
 				urlinfo['title'] =HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[contains(@class,"p-name")]//a[@target="_blank"]', segment)[0])) +u'-京东'
 
 			data_price =  ct.getRegex('data-price="(.*?)"',segment)
+
+			if not data_price:
+				data_price=HTMLParser().unescape(ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//div[contains(@class,"p-price")]//strong', segment)[0]))
+				urlinfo['info'] =  '价格<em>%s</em>元'%(data_price)
+			else:urlinfo['info'] = '价格<em>%s</em>元'%(data_price)
+
 			imglink = ct.getXpath('//img/@src',segment)
 			if imglink:
 				imglink=imglink[0]
@@ -55,7 +40,8 @@ def process(url):
 				if imglink:
 					imglink = imglink[0]
 				else:imglink=None
-			urlinfo['info'] = '价格<em>%s</em>元'%(data_price)
+
+
 			urlinfo['imglink'] =  imglink
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']

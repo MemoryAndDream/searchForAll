@@ -16,7 +16,7 @@ def process(url):
 
 	g_page_config =ct.crawlerTool.getRegex('g_page_config\s*=\s*(.*);',page)
 	#print eval(g_page_config)['mod']['data']['auctions']
-	segments = json.loads(g_page_config)['mods']['itemlist']['data']['auctions']
+	segments = json.loads(g_page_config)['mods']['itemlist']['data']['auctions']  #搜索微波炉就不用这个了
 	#print segments[0]
 	for segment in segments:
 		try:

@@ -17,7 +17,7 @@ padding: 0;
 a {
     font-style: normal;
     text-decoration: underline;
-    cursor: auto;
+    cursor: pointer;
     font-weight: 400;
     font-size: medium;
 }
@@ -26,6 +26,8 @@ em {
     color: #c00;
     font-style: normal;
 }
+
+
 a em {
     text-decoration: underline;
 }
@@ -145,6 +147,8 @@ font-family: arial;
 	border: 1px solid #ccc;
 	border-top: none;
 	color: #004080;
+	position:absolute;
+	margin:0px
 }
 
 .gover_search .search_suggest li {
@@ -166,6 +170,9 @@ font-family: arial;
 	text-align: right;
 	line-height: 24px;
 	padding-right: 10px
+}
+button.submit{
+margin:0px
 }
 
 #pagenum{
@@ -240,12 +247,15 @@ overflow:hidden;
 text-overflow:ellipsis;
 display:-webkit-box;
 -webkit-box-orient:vertical;
--webkit-line-clamp:2;
+/*-webkit-line-clamp:3;/*这个只对chrome有效*/
 }
 
 .item img{
 width:220px;
 height:220px
 }
-
+.item_title a{ /*为了方便复制 需要改成不可拖拽*/
+user-drag:none
+-webkit-user-drag:none;
+}
 .clear{ clear:both}

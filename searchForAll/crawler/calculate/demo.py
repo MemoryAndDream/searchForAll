@@ -58,7 +58,7 @@ def compareWords(words1,words2):
 		if word in words2:
 			sumScore += len(word)*1.0/words[word]
 			print word,len(word)*1.0/words[word]
-	return sumScore
+	return sumScore/len(words2)
 	pass
 
 b = splitWords()

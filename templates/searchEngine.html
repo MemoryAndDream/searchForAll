@@ -23,7 +23,7 @@
      {% ifnotequal page 1 %}
     <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
     <span class="pc_next"> 上一页</span>
-    {% endifequal %}
+    {% endifnotequal %}
 
     {% for i in pagenums %}
     <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">

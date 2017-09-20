@@ -3,7 +3,7 @@
 <head>
 <meta charset=" utf-8">
 <meta name="author" content="http://www.softwhy.com/" />
-<title>一键搜索</title>
+<title>完全搜索</title>
 <style>
 
 
@@ -68,17 +68,22 @@ img {
     width: 100%;
     font-size: 20px;
 	 position: relative;
-    top: 191px;
+    top: 90px;
 	left: 0;
 	z-index: 99;
 	height: 63px;
-	padding: 15px 0 0 20px;
+	padding: 0px 0 0 0px;
     margin: 0;
 	border-bottom: 0;
 	background-color: white;
 	word-wrap: break-word;
     word-break: break-word;
 }
+.gover_search #s_lg_img {
+ margin:0 auto;
+}
+
+
 .gover_search .search_suggest {
 	z-index: 999;
 	display: none;
@@ -92,6 +97,7 @@ img {
 	border: 1px solid #ccc;
 	border-top: none;
 	color: #004080;
+
 }
 
 
@@ -152,6 +158,10 @@ img {
 
 
 	<div class="gover_search">
+		<div id="lg" class="s-p-top">
+			<img id="s_lg_img" width="366" height="119" src="static/wangquan_logo.png">
+		</div>
+
 		<div class="gover_search_form clearfix">
 			<!--<span class="search_t">一键搜索</span>这里需要的是图-->
 
@@ -163,12 +173,13 @@ img {
 				<ul >
 				</ul>
 			</div>
-				<div> <label><input name="searchType" type="radio" value="0"  id="radio0" checked="checked"/>baidu+bing </label>
-				<label><input name="searchType" type="radio" value="2" id="radio2"/>google </label>
-				<label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
-				<label><input name="searchType" type="radio" value="1" id="radio1"/>taobao+jd </label>
- </div>
-		</div>
+				<div>
+					<label><input name="searchType" type="radio" value="0" id="radio0"  checked="checked"/>百度+必应 </label>
+					<label><input name="searchType" type="radio" value="2" id="radio2" />google </label>
+					<label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
+					<label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
+ 				</div>
+
 	</div>
 
 
