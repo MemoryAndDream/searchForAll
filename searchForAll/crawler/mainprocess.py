@@ -16,32 +16,28 @@ def keywordSearch(keyword,page='1',type='0'):
 	print keyword
 	type=str(type)
 	page=int(page)
-	if type == '0' or type == 'null':
-		SITES = {
-			'baidu': 'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,str(page*10)),
-			'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,str(page*10+1),page)
-
-		}  # 域名和模块对应关系
-	elif type == '1':
-		SITES = {
-			'taobao': 'https://s.taobao.com/search?q=%s&s=%s' % (keyword, str((page-1)*44)),
-			'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1)),
-			'amazon':'https://www.amazon.cn/s/ref=nb_sb_noss_1?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Daps&rh=i%3Aaps%2Ck%3A'+keyword+'&page='+str(page)
-		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
-	elif type == '2':
-		SITES = {
-			'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,str(page*100))
+	websitelist={
+		1:{'baidu':'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,str(page*10))},
+		2:{'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,str(page*10+1),page)},
+		3:{'taobao':'https://s.taobao.com/search?q=%s&s=%s' % (keyword, str((page-1)*44))},
+		4:{'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1))},
+		5:{'amazon':'https://www.amazon.cn/s/ref=nb_sb_noss_1?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Daps&rh=i%3Aaps%2Ck%3A'+keyword+'&page='+str(page)},
+		6:{'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,str(page*100))},
+		7:{'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, str(page))}
 		}
+	if type == '0' or type == 'null':
+		SITES = dict(websitelist[1].items()+websitelist[2].items())
+ # 域名和模块对应关系
+	elif type == '1':
+		SITES  = dict(websitelist[3].items()+websitelist[4].items()+websitelist[5].items())
+	elif type == '2':
+		SITES = dict(websitelist[6].items())
 
 	elif type == '5':
-		SITES = {
-			'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, str(page)),
-		}  # 域名和模块对应关系  一个网站多个url的情况？ https://github.com/search?l=Python&q=tmall.com&type=Code&utf8=%E2%9C%93
+		SITES = dict(websitelist[7].items())
 
 	else:
-		SITES = {
-			'baidu': 'https://www.baidu.com/s?wd=%s&ie=utf-8' % (keyword)
-		}
+		SITES = dict(websitelist[1].items())
 
 	response=[]
 
@@ -87,12 +83,14 @@ def keywordSearch(keyword,page='1',type='0'):
 	response=[]
 	for k,v in sortedResponse.items():#暂且根据长度排列？
 		response.append(v)
-	#print response
+	print response
 	#response需要来个智能排序
-	try:
-		rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
-	except:
-		pass
+	rsAfterSort=None
+	if type == '1': #目前看来商品的结果比较合适用关键词排序
+		try:
+			rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
+		except Exception, e:
+			print str(e)
 	if rsAfterSort:
 		response=rsAfterSort
 

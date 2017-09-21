@@ -25,11 +25,13 @@ a {
 em {
     color: #c00;
     font-style: normal;
+    font-weight:normal;
 }
 
 strong {
     color: #c00;
     font-style: normal;
+    font-weight:normal;
 }
 
 a em {
