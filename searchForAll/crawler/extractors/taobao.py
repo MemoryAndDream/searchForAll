@@ -16,29 +16,61 @@ def process(url):
 
 	g_page_config =ct.crawlerTool.getRegex('g_page_config\s*=\s*(.*);',page)
 	#print eval(g_page_config)['mod']['data']['auctions']
-	segments = json.loads(g_page_config)['mods']['itemlist']['data']['auctions']  #搜索微波炉就不用这个了
-	#print segments[0]
-	for segment in segments:
-		try:
-			#print segment
-			urlinfo={}
-			urlinfo['url']='https://detail.tmall.com/item.htm?id='+segment['nid']
-			urlinfo['title'] = segment['raw_title']
-			if 'tmall' in urlinfo['url']:
-				urlinfo['title']=urlinfo['title']+'-天猫'
-				urlinfo['source'] = 'tmall'
-			else:
-				urlinfo['title'] = urlinfo['title'] + '-淘宝'
-				urlinfo['source'] = 'taobao'
-			num=segment.get('view_sales','0')
-			price = segment["view_price"]
-			urlinfo['info'] = '价格<em>%s</em>元 购买数量<em>%s</em>'%(price,num)
-			urlinfo['imglink'] = segment["pic_url"]
+	try:
+		segments = json.loads(g_page_config)['mods']['itemlist']['data']['auctions']  #搜索微波炉就不用这个了
+	except:
+		segments = []
+	if segments:
+		#print segments[0]
+		for segment in segments:
+			try:
+				#print segment
+				urlinfo={}
+				urlinfo['url']='https://detail.tmall.com/item.htm?id='+segment['nid']
+				urlinfo['title'] = segment['raw_title']
+				if 'tmall' in urlinfo['url']:
+					urlinfo['title']=urlinfo['title']+'-天猫'
+					urlinfo['source'] = 'tmall'
+				else:
+					urlinfo['title'] = urlinfo['title'] + '-淘宝'
+					urlinfo['source'] = 'taobao'
+				num=segment.get('view_sales','0')
+				price = segment["view_price"]
+				urlinfo['info'] = '价格<em>%s</em>元 购买数量<em>%s</em>'%(price,num)
+				urlinfo['imglink'] = segment["pic_url"]
 
-			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
-			urlinsfos.append(urlinfo)
-		except:
-			traceback.print_exc()
+				#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
+				urlinsfos.append(urlinfo)
+			except:
+				traceback.print_exc()
+
+
+	else:
+		segments = json.loads(g_page_config)['mods']['grid']['data']['spus']
+		for segment in segments:
+			try:
+				#print segment
+				urlinfo={}
+				urlinfo['url']=segment['url']
+				urlinfo['title'] = segment['title']
+				if 'tmall' in urlinfo['url']:
+					urlinfo['title']=urlinfo['title']+'-天猫'
+					urlinfo['source'] = 'tmall'
+				else:
+					urlinfo['title'] = urlinfo['title'] + '-淘宝'
+					urlinfo['source'] = 'taobao'
+				importantKey = segment['importantKey']
+				price = segment["price"]
+				urlinfo['info'] = '价格<em>%s</em>元 <em>%s</em> '%(price,importantKey)
+				urlinfo['imglink'] = segment["pic_url"]
+
+				#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
+				urlinsfos.append(urlinfo)
+			except:
+				traceback.print_exc()
+
+
+
 	return urlinsfos
 
 

@@ -65,9 +65,9 @@ def sortBySimilar(inputDicts,key,firstkeyword=''):
 	beforeSort=[]
 	for i in range(len(inputDicts)):
 		beforeSort.append(inputDicts[i].get(key,''))
-	print [k for k in beforeSort]
+	#print [k for k in beforeSort]
 	b,words = splitWords([v for v in beforeSort])  #输出切割后的标题数组
-	print b,words
+	#print b,words
 	opa=[]
 	for i in range(len(b)):
 		opa.append([i,b[i]])

@@ -83,7 +83,7 @@ def keywordSearch(keyword,page='1',type='0'):
 	response=[]
 	for k,v in sortedResponse.items():#暂且根据长度排列？
 		response.append(v)
-	print response
+	#print response
 	#response需要来个智能排序
 	rsAfterSort=None
 	if type == '1': #目前看来商品的结果比较合适用关键词排序
