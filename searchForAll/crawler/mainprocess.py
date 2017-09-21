@@ -7,10 +7,11 @@ import Queue
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+from calculate import similarCal
 
 def keywordSearch(keyword,page='1',type='0'):
 	TYPES={'0':'searchEngine','1':'movie','2':'music','3':'novel','4':'news','5':'code'}
-	print keyword
+	keywordbf=keyword
 	keyword = urllib.quote(keyword.encode('utf8'))  #输入的是str
 	print keyword
 	type=str(type)
@@ -86,7 +87,14 @@ def keywordSearch(keyword,page='1',type='0'):
 	response=[]
 	for k,v in sortedResponse.items():#暂且根据长度排列？
 		response.append(v)
-
+	#print response
 	#response需要来个智能排序
+	try:
+		rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
+	except:
+		pass
+	if rsAfterSort:
+		response=rsAfterSort
+
 
 	return response

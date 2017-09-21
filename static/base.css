@@ -27,6 +27,10 @@ em {
     font-style: normal;
 }
 
+strong {
+    color: #c00;
+    font-style: normal;
+}
 
 a em {
     text-decoration: underline;
