@@ -12,7 +12,7 @@ def process(url):
 	page = ct.crawlerTool.getPage(url)
 	#print page
 	#print url
-	segments = ct.crawlerTool.getXpath('//div[@class="g"]',page)#这个xpath可以过滤掉很多广告。。
+	segments = ct.crawlerTool.getXpath('//div[@class="g"]',page)
 	#print segments
 	for segment in segments:
 		#print segment

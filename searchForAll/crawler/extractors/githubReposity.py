@@ -17,7 +17,7 @@ def process(url):
 		#print segment
 		try:
 			urlinfo={}
-			urlinfo['url']= ct.crawlerTool.getXpath('//h3/a/@href',segment)[0]
+			urlinfo['url']= 'https://github.com'+ct.crawlerTool.getXpath('//h3/a/@href',segment)[0]
 			urlinfo['title'] = ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//h3//text()', segment))
 			urlinfo['info'] = ct.crawlerTool.extractorText(ct.crawlerTool.getXpath('//p//text()', segment))
 
