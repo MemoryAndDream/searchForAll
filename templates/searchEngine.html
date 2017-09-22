@@ -17,12 +17,12 @@
 {% endfor %}
 </ul>
 
-<div>
+
     <br/>
 <div id="pagenum">
      {% ifnotequal page 1 %}
     <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
-    <span class="pc_next"> 上一页</span>
+    <span class="pc_next"> 上一页</span></a>
     {% endifnotequal %}
 
     {% for i in pagenums %}
@@ -39,8 +39,7 @@
 
 
 </div>
-
+</div>
 {% endblock %}
-
 
 

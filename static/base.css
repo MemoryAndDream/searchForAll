@@ -2,9 +2,11 @@
 body {
 	margin: 0;
 	padding: 0;
+	padding-bottom:50px;
 	font-family:'Microsoft Yahei',"simsun";
 	font-weight:normal;
 	position: relative;
+
 
 }
 ul, li{
@@ -80,7 +82,7 @@ width: 538px;
 .maincontent{
 line-height: 1.54;
 padding-left: 121px;
-padding-top: 5px;
+padding-top: 30px;
 width: 540px;
 float: left;
 word-wrap: break-word;
@@ -182,10 +184,11 @@ margin:0px
 }
 
 #pagenum{
+padding:0px;
 margin-left:10px;
 margin-top:60px;
-
-}
+margin-bottom:40px;
+min-height: 60px;/*浮动元素撑不开，要自己设置*/}
 
 #pagenum .pc {
 float: left; /*span向左浮动*/
@@ -197,6 +200,7 @@ float: left; /*span向左浮动*/
     display: block;/*这个必须加*/
 }
 #pagenum .pc_next {
+
 float: left; /*span向左浮动*/
  border: 1px solid #e1e2e3;
     cursor: pointer;
@@ -265,3 +269,19 @@ user-drag:none
 -webkit-user-drag:none;
 }
 .clear{ clear:both}
+
+.footer {
+ width: 100%;
+    bottom: 0;
+    display: block;
+    height: 30px;
+   position:relative;
+    text-align: center;
+
+    background-color:#fff;
+    color: #000;
+}
+
+.footer a{
+	color: #000;
+}

@@ -4,8 +4,9 @@
 <meta charset=" utf-8">
 <meta name="author" content="http://www.softwhy.com/" />
 	 <meta name="description" content="异步搜索，结果智能整合">
-<title>完全搜索</title>
-<style>
+{% include 'title.html' %}
+
+	<style>
 
 
 /*以后要做的是：左右分割 多余折叠 字体修正 我至少要看的懂百度的效果*/
@@ -15,6 +16,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	body{ padding-bottom:30px;}
 	font-family:'Microsoft Yahei',"simsun";
 	font-weight:normal;
 	position: relative;
@@ -148,6 +150,21 @@ img {
 
 }
 
+.footer {
+    bottom: 0;
+    display: block;
+    height: 30px;
+    position:fixed;
+    text-align: center;
+    width: 100%;
+    background-color:#fff;
+    color: #000;
+}
+
+.footer a{
+	color: #000;
+}
+
 </style>
 
 </head>
@@ -180,18 +197,9 @@ img {
 					<label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
 					<label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
  				</div>
-
+		</div>
 	</div>
-
-
-
-
-
+{% include 'foot.html' %}
 
 </body>
-<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-
-<script type="text/javascript" charset="UTF-8" src="static/search.js"></script>
 </html>

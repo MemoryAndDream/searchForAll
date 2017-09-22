@@ -17,14 +17,45 @@ def keywordSearch(keyword,page='1',type='0'):
 	type=str(type)
 	page=int(page)
 	websitelist={
-		1:{'baidu':'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,str(page*10))},
-		2:{'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,str(page*10+1),page)},
-		3:{'taobao':'https://s.taobao.com/search?q=%s&s=%s' % (keyword, str((page-1)*44))},
-		4:{'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,str(page*2+1))},
+		1:{'baidu':'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,page*10)},
+		2:{'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,page*10+1,page)},
+		3:{'taobao':'https://s.taobao.com/search?q=%s&s=%s' % (keyword, (page-1)*44)},
+		4:{'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,page*2+1)},
 		5:{'amazon':'https://www.amazon.cn/s/ref=nb_sb_noss_1?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Daps&rh=i%3Aaps%2Ck%3A'+keyword+'&page='+str(page)},
-		6:{'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,str(page*100))},
-		7:{'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, str(page))}
+		6:{'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,page*100)},
+		7:{'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, page)},#github
+		8:{'tmall':'https://list.tmall.com/search_product.htm?q=%s&s=%s'%(keyword,page*60)},#天猫
+		9:{'suning':'https://search.suning.com/%s/&iy=0&cp=%s'%(keyword,page-1)}, #苏宁
+		10:{'dangdang':'http://search.dangdang.com/?key=%s&act=input&page_index=%s'%(keyword,page)},
+		11:{'gome':'https://search.gome.com.cn/search?question=%s&searchType=goods&facets=12gm&page=%s&bws=0&type=json&rank=1'%(keyword,page)},
+
+		#资源搜索
+		12:{'mj0351':'https://sou.mj0351.com/search.html?text=%s&page=%s&sort=0&searchtype=0'%{keyword,page}},
+		13:{'cilimao':'http://www.cilimao.me/api/search?size=10&sortDirections=desc&word=%s&page=%s'%{keyword,page}},
+		14:{'moviejie':'https://moviejie.com/search/q_%s/'%(keyword)}, #感觉不太好
+		15:{'591mov':'https://591mov.com/zh-hans/search/soe/?c=&s=create_time&p=%s'%{keyword,page}},
+		16:{'56wangpan':'http://www.56wangpan.com/search/kw%spg%s'%(keyword,page)},
+   		17:{'slimego':'http://www.slimego.cn/search.html?q=game%20of&page=2&rows=20'},
+
+
+
+
 		}
+
+	websiteType={
+		"searchEngine":[1,2,6],
+		"shopping":[3,4,5,8,9,10],
+		"Scholar":[],
+		"travel":[],#http://scholar.chongbuluo.com/
+		"downloads":[],
+		"dataAnalyse":[],#http://data.chongbuluo.com/
+		"onlineMovies":[],
+		"music":[],
+		"novel":[],
+		"news":[],
+		"blog_it":[]
+
+	}
 	if type == '0' or type == 'null':
 		SITES = dict(websitelist[1].items()+websitelist[2].items())
  # 域名和模块对应关系

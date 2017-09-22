@@ -3,7 +3,7 @@
 <head>
 <meta charset=" utf-8">
 <meta name="author" content="http://www.softwhy.com/" />
-<title>完全搜索</title>
+{% include 'title.html' %}
 	<link href="static/base.css" rel="stylesheet">
 <style>
 
@@ -36,15 +36,13 @@
  </div>
 		</div>
 	</div>
-
+<div class="mainbody">
 	 {% block mainbody %}
 			       <p>original</p>
 				       {% endblock %}
+<div style="clear:both"></div>
 
-
-	<script type="text/javascript"
-		src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="static/search.js"></script>
-
+</div>
+{% include 'foot.html' %}
 </body>
 </html>
