@@ -30,15 +30,12 @@ def keywordSearch(keyword,page='1',type='0'):
 		11:{'gome':'https://search.gome.com.cn/search?question=%s&searchType=goods&facets=12gm&page=%s&bws=0&type=json&rank=1'%(keyword,page)},
 
 		#资源搜索
-		12:{'mj0351':'https://sou.mj0351.com/search.html?text=%s&page=%s&sort=0&searchtype=0'%{keyword,page}},
-		13:{'cilimao':'http://www.cilimao.me/api/search?size=10&sortDirections=desc&word=%s&page=%s'%{keyword,page}},
+		12:{'mj0351':'https://sou.mj0351.com/search.html?text=%s&page=%s&sort=0&searchtype=0'%(keyword,page)},
+		13:{'cilimao':'http://www.cilimao.me/api/search?size=10&sortDirections=desc&word=%s&page=%s'%(keyword,page)},
 		14:{'moviejie':'https://moviejie.com/search/q_%s/'%(keyword)}, #感觉不太好
 		15:{'591mov':'https://591mov.com/zh-hans/search/soe/?c=&s=create_time&p=%s'%{keyword,page}},
 		16:{'56wangpan':'http://www.56wangpan.com/search/kw%spg%s'%(keyword,page)},
-   		17:{'slimego':'http://www.slimego.cn/search.html?q=game%20of&page=2&rows=20'},
-
-
-
+   		17:{'slimego':'http://www.slimego.cn/search.html?q=%s&page=%s&rows=20'%(keyword,page)}
 
 		}
 
