@@ -61,13 +61,13 @@ img {
 }
 
 .gover_search {
+background: #fff  none repeat scroll 0 0;
 width: 100%;
 font-size: 20px;
 	position: fixed;
 	left: 0;
   	top: 0px;
 	z-index: 99;
-	height: 63px;
 	padding: 15px 0 0 20px;
 	border-bottom: 0;
 	background-color: white;
@@ -82,7 +82,7 @@ width: 538px;
 .maincontent{
 line-height: 1.54;
 padding-left: 121px;
-padding-top: 30px;
+padding-top: 62px;
 width: 540px;
 float: left;
 word-wrap: break-word;
@@ -109,6 +109,7 @@ font-family: arial;
 
 }
 .gover_search_form {
+
 	height: 36px;
 }
 
@@ -117,9 +118,15 @@ font-family: arial;
 	line-height: 26px;
 	color: #666;
 }
+.gover_search .searchType {
+	background: #fff  none repeat scroll 0 0;
+
+}
+
+
 
 .gover_search .input_search_key {
-   background: transparent none repeat scroll 0 0;
+   background: #fff  none repeat scroll 0 0;
     font-size: 16px/22px arial;
     height: 32px;
     width:526px;

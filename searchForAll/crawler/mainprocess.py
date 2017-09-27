@@ -9,48 +9,56 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from calculate import similarCal
 
-def keywordSearch(keyword,page='1',type='0'):
+def keywordSearch(keyword,page='1',type='0',sites=[]):
 	TYPES={'0':'searchEngine','1':'movie','2':'music','3':'novel','4':'news','5':'code'}
 	keywordbf=keyword
 	keyword = urllib.quote(keyword.encode('utf8'))  #输入的是str
 	print keyword
 	type=str(type)
 	page=int(page)
-	websitelist={
-		1:{'baidu':'https://www.baidu.com/s?wd=%s&pn=%s&ie=utf-8'%(keyword,page*10)},
-		2:{'bing':'https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,page*10+1,page)},
-		3:{'taobao':'https://s.taobao.com/search?q=%s&s=%s' % (keyword, (page-1)*44)},
-		4:{'jd':'https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,page*2+1)},
-		5:{'amazon':'https://www.amazon.cn/s/ref=nb_sb_noss_1?__mk_zh_CN=%E4%BA%9A%E9%A9%AC%E9%80%8A%E7%BD%91%E7%AB%99&url=search-alias%3Daps&rh=i%3Aaps%2Ck%3A'+keyword+'&page='+str(page)},
-		6:{'google':'https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,page*100)},
-		7:{'githubReposity': 'https://github.com/search?q=%s&p=%s&type=Repositories' % (keyword, page)},#github
+	websitelist={   #这里应该放的是代码网站url，配置网站另外弄   代码网站自动检索，要做到更新只需要新增文件即可！
+		1:{'baidu':[keyword,page]},
+		2:{'bing':[keyword,page]},
+		3:{'taobao':[keyword,page]},
+		4:{'jd':[keyword,page]},
+		5:{'amazon':[keyword,page]},
+		6:{'google':[keyword,page]},
+		7:{'githubReposity':[keyword,page] },#github
+
 		8:{'tmall':'https://list.tmall.com/search_product.htm?q=%s&s=%s'%(keyword,page*60)},#天猫
 		9:{'suning':'https://search.suning.com/%s/&iy=0&cp=%s'%(keyword,page-1)}, #苏宁
 		10:{'dangdang':'http://search.dangdang.com/?key=%s&act=input&page_index=%s'%(keyword,page)},
 		11:{'gome':'https://search.gome.com.cn/search?question=%s&searchType=goods&facets=12gm&page=%s&bws=0&type=json&rank=1'%(keyword,page)},
 
 		#资源搜索
-		12:{'mj0351':'https://sou.mj0351.com/search.html?text=%s&page=%s&sort=0&searchtype=0'%(keyword,page)},
+		12:{'mj0351':[keyword,page]},
 		13:{'cilimao':'http://www.cilimao.me/api/search?size=10&sortDirections=desc&word=%s&page=%s'%(keyword,page)},
 		14:{'moviejie':'https://moviejie.com/search/q_%s/'%(keyword)}, #感觉不太好
 		15:{'591mov':'https://591mov.com/zh-hans/search/soe/?c=&s=create_time&p=%s'%{keyword,page}},
 		16:{'56wangpan':'http://www.56wangpan.com/search/kw%spg%s'%(keyword,page)},
-   		17:{'slimego':'http://www.slimego.cn/search.html?q=%s&page=%s&rows=20'%(keyword,page)}
+   		17:{'slimego':'http://www.slimego.cn/search.html?q=%s&page=%s&rows=20'%(keyword,page)},
+
+		18:{'torrentz2':'https://torrentz2.eu/search?f=%s&p=%s'%(keyword,page)},
+		19:{'panduoduo':'http://www.panduoduo.net/s/name/%s/%s'%(keyword,page)},
+		20:{'atugu':'http://www.atugu.com/infos/%s/%s'%(keyword,page-1)},
+		21:{'searchcode':'https://searchcode.com/?q=%s'%keyword},
+		22:{'daimugua':'https://www.daimugua.com/search.aspx?page=%s&q=%s&sort=0'%(page,keyword)}
 
 		}
 
 	websiteType={
 		"searchEngine":[1,2,6],
-		"shopping":[3,4,5,8,9,10],
+		"shopping":[3,4,5,8,9,10,11],
 		"Scholar":[],
 		"travel":[],#http://scholar.chongbuluo.com/
-		"downloads":[],
+		"downloads":[12,13,14,15,16,17,18,19,20],
 		"dataAnalyse":[],#http://data.chongbuluo.com/
 		"onlineMovies":[],
 		"music":[],
 		"novel":[],
 		"news":[],
-		"blog_it":[]
+		"blog_it":[],
+		"code":[7,21]
 
 	}
 	if type == '0' or type == 'null':
@@ -66,6 +74,18 @@ def keywordSearch(keyword,page='1',type='0'):
 
 	else:
 		SITES = dict(websitelist[1].items())
+
+	print SITES,sites
+
+	if sites:#sites列表优先级更高
+		SITES =  {}
+		for site in sites:
+			try:
+				SITES=dict(SITES.items() + websitelist[int(site)].items())
+			except:
+				pass
+
+	print SITES
 
 	response=[]
 
@@ -87,10 +107,16 @@ def keywordSearch(keyword,page='1',type='0'):
 
 	li = []
 	for k,v in SITES.items():
-		mo = importlib.import_module('.'.join(['searchForAll','crawler','extractors', k]))#这个地方需要并发
+		try:
+			mo = importlib.import_module('.'.join(['searchForAll','crawler','extractors', k]))#这个地方需要并发
+		except:
+			mo = importlib.import_module('.'.join(['searchForAll', 'crawler', 'extractors', 'universal']))
+			v.append(k)
+
 #		response+=(mo.process(v))
-		t = MyThread(mo.process,args=[v])
-		#print v
+
+		t = MyThread(mo.process,args=v)
+		print k,v
 		li.append(t)
 		t.start()
 

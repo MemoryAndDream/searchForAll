@@ -20,6 +20,9 @@
 
 
 	<div class="gover_search">
+		<a href="/" style=" display: block;">
+		<img id="s_lg_img" width="98" height="32" src="static/wangquan_logo.png">
+		</a>
 		<div class="gover_search_form clearfix">
 			<!--<span class="search_t">一键搜索</span>这里需要的是图--> <input type="text"
 				class="input_search_key" id="gover_search_key"
@@ -29,12 +32,15 @@
 				<ul >
 				</ul>
 			</div>
-			<div> <label><input name="searchType" type="radio" value="0" id="radio0"/>百度+必应 </label>
+
+			<div class="searchType"> <label><input name="searchType" type="radio" value="0" id="radio0"/>百度+必应 </label>
 				<label><input name="searchType" type="radio" value="2" id="radio2" />google </label>
 				<label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
 				<label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
  </div>
+			<div style="clear:both"></div>
 		</div>
+		<div style="clear:both"></div>
 	</div>
 <div class="mainbody">
 	 {% block mainbody %}

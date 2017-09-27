@@ -10,7 +10,8 @@ import json
 # 摘取所要数据
 
 
-def process(url):
+def process(keyword,page):
+	url='https://s.taobao.com/search?q=%s&s=%s' % (keyword, (page-1)*44)
 	urlinsfos=[]
 	page = ct.crawlerTool.getPage(url)
 

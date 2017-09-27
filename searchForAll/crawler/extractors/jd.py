@@ -9,7 +9,8 @@ import traceback
 
 
 
-def process(url):
+def process(keyword,page):
+	url='https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,page*2+1)
 	urlinsfos=[]
 	page = ct.crawlerTool.getPage(url)
 	segments = ct.crawlerTool.getXpath("//li[@class='gl-item']",page)#这个xpath可以过滤掉很多广告。。
