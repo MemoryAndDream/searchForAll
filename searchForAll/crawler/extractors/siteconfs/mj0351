@@ -1,0 +1,19 @@
+[extractor0]
+searchUrl:https://sou.mj0351.com/search.html?text=${keyword}&page=${page}&sort=0&searchtype=0
+segment://ul[@class="media-list"]//li
+title://a[@class="title"]
+url://a[@class="title"]/@href
+info://h6;//div[@class="media-body"]//div
+# ;表示拼接  //开头视为xpath 没有括号视为文字 有括号为正则
+
+
+#另可以用正则  所有相对路径修正为绝对
+#需要自动补全功能
+
+
+#[extractor1]
+#searchUrl:https://sou.mj0351.com/search.html?text=${keyword}&page=${page}&sort=0&searchtype=0
+#segment:
+#title:
+#url:
+#info:

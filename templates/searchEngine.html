@@ -1,44 +1,44 @@
 {% extends "base.html" %}
- 
+
 {% block mainbody %}
 
 <div class="maincontent">
-<ul>
-{% for urlinfo in urlinfos %}
-    <li><h3><a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a>
-    </h3>
-     <div class="urlinfo"> {{ urlinfo.info|safe }}</div>
-           {% if urlinfo.imglink %}
-    <img src="{{urlinfo.imglink}}">
-    {% endif %}
-    </li>
+    <ul>
+        {% for urlinfo in urlinfos %}
+        <li><h3><a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a>
+        </h3>
+            <div class="urlinfo"> {{ urlinfo.info|safe }}</div>
+            {% if urlinfo.imglink %}
+            <img src="{{urlinfo.imglink}}">
+            {% endif %}
+        </li>
 
 
-{% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
 
 
     <br/>
-<div id="pagenum">
-     {% ifnotequal page 1 %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
-    <span class="pc_next"> 上一页</span></a>
-    {% endifnotequal %}
+    <div id="pagenum">
+        {% ifnotequal page 1 %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
+            <span class="pc_next"> 上一页</span></a>
+        {% endifnotequal %}
 
-    {% for i in pagenums %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
+        {% for i in pagenums %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
 
-        <span class="pc"> {{ i }}</span>
-       </a>
+            <span class="pc"> {{ i }}</span>
+        </a>
 
-       {% endfor %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:1}}&type={{type}}">
+        {% endfor %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:1}}&type={{type}}">
 
-        <span class="pc_next"> 下一页</span>
-       </a>
+            <span class="pc_next"> 下一页</span>
+        </a>
 
 
-</div>
+    </div>
 </div>
 {% endblock %}
 

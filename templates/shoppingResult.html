@@ -1,57 +1,57 @@
 {% extends "base.html" %}
- 
+
 {% block mainbody %}
 
 <div class="shoppingContent">
     <div class="m-itemlist" >
         <div class="items">
 
-    {% for urlinfo in urlinfos %}
+            {% for urlinfo in urlinfos %}
             <div class="item" >
                 <div class="pic-box J_MouseEneterLeave J_PicBox">
-                <div class="pic-box-inner">
-                <div class="pic">
-                <a  target="_blank"  href="{{ urlinfo.url }}">
-                {% if urlinfo.imglink %}
-                        <img src="{{urlinfo.imglink}}"  class="J_ItemPic img" alt="{{ urlinfo.title }}">
-                {% endif %}
-                </a>
-                </div>
-                </div>
+                    <div class="pic-box-inner">
+                        <div class="pic">
+                            <a  target="_blank"  href="{{ urlinfo.url }}">
+                                {% if urlinfo.imglink %}
+                                <img src="{{urlinfo.imglink}}"  class="J_ItemPic img" alt="{{ urlinfo.title }}">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="item_title"> <a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a></div>
 
-                     <div class="iteminfo"> {{ urlinfo.info|safe}}</div>
+                <div class="iteminfo"> {{ urlinfo.info|safe}}</div>
             </div>
 
 
 
-    {% endfor %}
-<div class="clear"></div>
-            </div>
-</div>
+            {% endfor %}
+            <div class="clear"></div>
+        </div>
+    </div>
 
     <br/>
-<div id="pagenum">
-{% ifnotequal page 1 %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
-    <span class="pc_next"> 上一页</span></a>
-    {% endifnotequal %}
+    <div id="pagenum">
+        {% ifnotequal page 1 %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
+            <span class="pc_next"> 上一页</span></a>
+        {% endifnotequal %}
 
-    {% for i in pagenums %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
+        {% for i in pagenums %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
 
-        <span class="pc"> {{ i }}</span>
-       </a>
+            <span class="pc"> {{ i }}</span>
+        </a>
 
-       {% endfor %}
-<a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:'1'}}&type={{type}}">
+        {% endfor %}
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:'1'}}&type={{type}}">
 
-        <span class="pc_next"> 下一页</span>
-       </a>
+            <span class="pc_next"> 下一页</span>
+        </a>
 
 
-</div>
+    </div>
 </div>
 {% endblock %}
 
