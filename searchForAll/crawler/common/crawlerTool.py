@@ -16,6 +16,7 @@ import Queue
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import threading
+import commands
 
 #下一步升级：将proxy，cookie做入类变量处理 用字典处理cookie覆盖
 #用字典构造
@@ -41,7 +42,11 @@ class crawlerTool:
     def getPage(url,proxy=None,data=None, referer = None ,cookie = None ,userAgent = None,cookiePath=None):
         # print url
         page_buf = ''
-        i = 0
+        #参考colander逻辑，链接带"的视作post请求
+        if '"' in url:
+            r = url.split('"')
+            url,data=r[0],r[1]
+        i = 0  #重试次数
         for i in range(1):
             # print url
             try:
@@ -67,7 +72,12 @@ class crawlerTool:
                 result = opener.open(method, timeout=10)
                 page_buf = result.read().decode('utf8')
                 return page_buf
+
             except urllib2.URLError, reason:
+                if 'sslv3 alert handshake failure' in str(reason):
+                    cmd = "curl '" + url + "' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'"
+                    pagebuf = commands.getoutput(cmd)
+                    return pagebuf
                 return str(reason)
             except Exception, reason:
                 raise Exception(reason)

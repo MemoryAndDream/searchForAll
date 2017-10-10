@@ -15,6 +15,8 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 import os
 import ConfigParser
+from ..common import urlHostParser
+
 
 def process(keyword,page,website):  #后面需要分类型
 
@@ -29,17 +31,27 @@ def process(keyword,page,website):  #后面需要分类型
 	try:
 		extractors = sorted(extractors,key=lambda d: int(d[-1]))
 	except:pass
+	urlBac=''
 	for extractor in extractors:
 		url = siteconf.get(extractor,'searchUrl')
 		url = url.replace('${keyword}',keyword).replace('${page}',str(page))
+		print url
 		segmentCut = siteconf.get(extractor,'segment')
 		titleCut =  siteconf.get(extractor,'title')
 		urlCut = siteconf.get(extractor, 'url')
 		infoCuts =  siteconf.get(extractor, 'info')
-		urlinsfos=[]#bing页面结果与百度不同 百度输出已经是\uxxx格式了 bing还是\xe1格式(str) 所以需要先解码成unicode
-		pageBuf = ct.crawlerTool.getPage(url)#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
-		segments = ct.crawlerTool.getXpath(segmentCut,pageBuf)#这个xpath可以过滤掉很多广告。。
-		if not segments:continue
+		urlinsfos=[]
+		if urlBac == url:#如果是一样的链接就不重复打开了
+			pageBuf = ct.crawlerTool.getPage(url)#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
+		else:
+			urlBac = url
+			pageBuf = ct.crawlerTool.getPage(url)
+		baseurl =  '/'.join(url.split('/')[:3])
+		pageBuf = urlHostParser.make_links_absolute(pageBuf,baseurl)
+		segments = ct.crawlerTool.getXpath(segmentCut,pageBuf)
+		if not segments:
+			print 'no matched segments'
+			continue
 		for segment in segments:
 			try:
 				urlinfo={}
@@ -49,10 +61,10 @@ def process(keyword,page,website):  #后面需要分类型
 				#print title,HTMLParser().unescape(title)
 				#print ct.crawlerTool.getXpath('//h2/a[1]', segment)#解码后&#183;好像变乱码了
 				urlinfo['title'] = title
-				print title
+				#print title
 				urlinfo['info']=''
 				for infoCut in infoCuts.split(';'):
-					urlinfo['info'] += ct.crawlerTool.getXpath(infoCut, segment)[0]
+					urlinfo['info'] += ' '.join(ct.crawlerTool.getXpath(infoCut, segment))  #info 作拼接处理
 				#print urlinfo['url'], urlinfo['title'], urlinfo['info']
 				urlinsfos.append(urlinfo)
 			except Exception,e:
