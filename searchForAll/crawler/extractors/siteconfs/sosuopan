@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://www.sosuopan.com/search?q=${keyword}&pn=${page}
+segment://div[@class="file-item"]
+title://div[@class="title"]/h2/a
+url://div[@class="title"]/h2/a/@href
+info://ul[@class="props"]//li/text()

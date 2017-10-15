@@ -1,0 +1,7 @@
+[extractor0]
+searchUrl:http://www.panduoduo.net/s/name/${keyword}/${page}
+segment://div[@class="row"]
+title://h3/a/@title
+url://h3/a/@href
+info://p
+# ;表示拼接  //开头视为xpath 没有括号视为文字 有括号为正则

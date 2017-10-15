@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:https://www.daimugua.com/search.aspx?page=${page}&q=${keyword}&sort=0
+segment://div[@class="search-item"]
+title://div[@class="item-title"]/a/@title
+url://div[@class="item-title"]/a/@href
+info://div[@class="item-bar"]

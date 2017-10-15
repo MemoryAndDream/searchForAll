@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://slimego.cn/search.html?q=${keyword}&page=${page}&rows=20
+segment://div[@class="searchRow"]
+title://span[@class="link"]/a
+url://span[@class="link"]/a/@href
+info://span[@class="info"]/span

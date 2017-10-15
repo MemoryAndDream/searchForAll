@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://wiseso.cc/search?keyword=${keyword}&pageindex=${page}&category=-1
+segment://div[@class="content link-info"]
+title://strong[@class="l-title"]
+url://p/a/@href
+info://p/span

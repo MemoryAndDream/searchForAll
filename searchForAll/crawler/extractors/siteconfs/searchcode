@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:https://searchcode.com/?q=${keyword}&p=${page}
+segment://div[@class="code-result"]
+title://h5/a
+url://h5/a/@href
+info://ol[@class="code-result"]//pre

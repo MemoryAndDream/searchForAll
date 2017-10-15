@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://www.57fx.com/search-all-${keyword}-${page}/
+segment://div[@class="content_file"]/dd
+title://div[@class="c_fn"]/a/@title
+url://div[@class="c_fn"]/a/@href
+info://div[@class="c_ft"]

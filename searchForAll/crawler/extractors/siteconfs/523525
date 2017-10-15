@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://www.523525.com/so-result-keyword-${keyword}-type-share-p-${page}.html
+segment://div[@id="listbox"]/li
+title://a
+url://a/@href
+info://span

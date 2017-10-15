@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://www.pansousou.net/s?wd=${keyword}
+segment://div[@class='row result-block']//ul/li
+title://div[@class="title"]/a
+url://div[@class="title"]/a/@href
+info://div[@class="fileinfo"]

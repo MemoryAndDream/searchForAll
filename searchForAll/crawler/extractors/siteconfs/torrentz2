@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:https://torrentz2.eu/search?f=${keyword}&p=${page}
+segment://div[@class="results"]//dl
+title://dt/a
+url://dt/a/@href
+info://dd/span

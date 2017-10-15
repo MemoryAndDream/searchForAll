@@ -1,0 +1,6 @@
+[extractor0]
+searchUrl:http://www.baiduyunpan.com/search/${keyword}-0-%E5%85%A8%E9%83%A8-${page}.html
+segment://div[@class="main-x"]
+title://h3/a
+url://h3/a/@href
+info://ul[@class="x-left-ul"]//text()
