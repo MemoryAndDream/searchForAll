@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=" utf-8">
-<meta name="author" content="http://www.softwhy.com/" />
-	 <meta name="description" content="异步搜索，结果智能整合">
-{% include 'title.html' %}
+    <meta charset=" utf-8">
+    <meta name="author" content="http://www.softwhy.com/"/>
+    <meta name="description" content="异步搜索，结果智能整合">
+    {% include 'title.html' %}
 
-	<style>
+    <style>
 
 
 /*以后要做的是：左右分割 多余折叠 字体修正 我至少要看的懂百度的效果*/
@@ -118,7 +118,12 @@ img {
 	background: #ddd;
 }
 
-
+.leftAlign{
+text-align: left;
+width:600px;
+margin:0 auto;
+margin-top:70px;
+}
 
 .input_search_key{
     width: 526px;
@@ -165,7 +170,8 @@ img {
 	color: #000;
 }
 
-</style>
+
+    </style>
 
 </head>
 <body>
@@ -174,31 +180,59 @@ img {
 </div>
 
 
+<div class="gover_search">
+    <div id="lg" class="s-p-top">
+        <img id="s_lg_img" width="366" height="119" src="static/logo.png">
+    </div>
 
-	<div class="gover_search">
-		<div id="lg" class="s-p-top">
-			<img id="s_lg_img" width="366" height="119" src="static/logo.png">
-		</div>
+    <div class="gover_search_form clearfix">
+        <!--<span class="search_t">一键搜索</span>这里需要的是图-->
 
-		<div class="gover_search_form clearfix">
-			<!--<span class="search_t">一键搜索</span>这里需要的是图-->
+        <input type="text"
+               class="input_search_key" id="gover_search_key"
+               placeholder="请输入关键词直接搜索"/>
+        <button type="submit" class="search_btn" id="search_btn" onclick="doSearchByInput()">搜索</button>
+        <div class="search_suggest" id="gov_search_suggest">
+            <ul>
+            </ul>
+        </div>
+        <div>
+            <label><input name="searchType" type="radio" value="0" id="radio0" checked="checked"/>百度+必应 </label>
+            <label><input name="searchType" type="radio" value="2" id="radio2"/>google </label>
+            <label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
+            <label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
+        </div>
+        <div class="leftAlign"> 更多网站：<input id='sites' name="sites" value="" type="hidden"/><input id='sitesType' name="sitesType"
+                                                                                 value="" type="hidden"/>
+            <br/>
+            <div>网盘搜索
+                <input class='moresites' name="netDiskSites" type="checkbox" value="19" onclick="onClickHander(this)"/>panduoduo
+                <input class='moresites' name="netDiskSites" type="checkbox" value="23" onclick="onClickHander(this)"/>pansousou
+                <input class='moresites' name="netDiskSites" type="checkbox" value="24" onclick="onClickHander(this)"/>sosuopan
+                <input class='moresites' name="netDiskSites" type="checkbox" value="25" onclick="onClickHander(this)"/>57fx
+                <input class='moresites' name="netDiskSites" type="checkbox" value="26" onclick="onClickHander(this)"/>slimego
+            </div>
 
-            <input type="text"
-				class="input_search_key" id="gover_search_key"
-				placeholder="请输入关键词直接搜索" />
-			<button type="submit" class="search_btn" id="search_btn" onclick="doSearchByInput()">搜索</button>
-			<div class="search_suggest" id="gov_search_suggest">
-				<ul >
-				</ul>
-			</div>
-				<div>
-					<label><input name="searchType" type="radio" value="0" id="radio0"  checked="checked"/>百度+必应 </label>
-					<label><input name="searchType" type="radio" value="2" id="radio2" />google </label>
-					<label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
-					<label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
- 				</div>
-		</div>
-	</div>
+            <div>购物搜索
+                <input class='moresites' name="shoppingSites" type="checkbox" value="8" onclick="onClickHander(this)"/>tmall
+                <input class='moresites' name="shoppingSites" type="checkbox" value="3" onclick="onClickHander(this)"/>taobao
+                <input class='moresites' name="shoppingSites" type="checkbox" value="4" onclick="onClickHander(this)"/>jd
+                <input class='moresites' name="shoppingSites" type="checkbox" value="5" onclick="onClickHander(this)"/>amazon
+                <input class='moresites' name="shoppingSites" type="checkbox" value="9" onclick="onClickHander(this)"/>suning
+                <input class='moresites' name="shoppingSites" type="checkbox" value="10" onclick="onClickHander(this)"/>dangdang
+
+
+            </div>
+
+            <div>代码搜索
+                <input class='moresites' name="CodeSites" type="checkbox" value="7" onclick="onClickHander(this)"/>githubReposity
+                <input class='moresites' name="CodeSites" type="checkbox" value="21" onclick="onClickHander(this)"/>searchcode
+            </div>
+
+
+        </div>
+    </div>
+</div>
 {% include 'foot.html' %}
 
 </body>

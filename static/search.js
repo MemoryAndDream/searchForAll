@@ -20,7 +20,44 @@ function demo(data) {
         //        Ul.innerHTML = html;
     }
 }
+ function onClickHander(obj){
+            if(obj.checked){
+                console.log("selected");
+                 console.log(obj.value);
+                 console.log(obj.name);
+                 fillSites(obj.name,obj.value)
 
+            }else{
+                console.log("unselected");
+            }
+
+        }
+
+
+function fillSites(sitesType,siteValue){
+//1、页面加载完成后将参数里的sites值传入input值 join push
+  //2、将多选框里的值写入input
+  //3、多选框互相冲突的逻辑 写一个其他要全部归空
+    SITES=new Array();//比如11,22,33
+    var boxes = document.getElementsByName(sitesType);
+    for(i=0;i<boxes.length;i++){
+    if (boxes[i].checked == true){
+    SITES.push(boxes[i].value);
+    }}
+    var otherOptions = $(".moresites");
+    console.log(otherOptions);
+    otherOptions.each(function(){
+    if (this.name != sitesType){
+    this.checked =false;
+    }
+    }
+)
+
+ $('#sites').val(SITES.join(','));
+    $('#sitesType').val(sitesType);
+
+
+}
 
 
 	function getQueryString(name) {
@@ -38,16 +75,25 @@ function demo(data) {
 
 	function doSearch(keyword){//搜索动作
 	    type=$("input[name='searchType'][type='radio']:checked").val();
-
-
+        sitesType = $('#sitesType').val()
+        sites = $('#sites').val()
+        if(sites && sitesType ){
+        window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type+'&sites'+sites+'&sitesType'+sitesType);
+        }else{
 		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
+		}
 		}
 	function doSearchByInput(){//搜索动作
 		var keyword=$("#gover_search_key").val();
 		//alert(keyword);
 		type=$("input[name='searchType'][type='radio']:checked").val();
+		sitesType = $('#sitesType').val()
+        sites = $('#sites').val()
+        if(sites && sitesType ){
+        window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type+'&sites='+sites+'&sitesType='+sitesType);
+        }else{
 		window.location.assign("searchResult?kw="+encodeURI(keyword)+"&type="+type);
-		}
+		}		}
 		function oSearchSuggest(searchFuc) {
 			var input = $('#gover_search_key');
 			var suggestWrap = $('#gov_search_suggest');

@@ -25,6 +25,7 @@ def searchResult(request):
 	sites = request.GET.get('sites','')
 	if sites:
 		sites = sites.split(',')
+		#sites = list(set(sites))#去重
 
 	urlinfos=[]
 
