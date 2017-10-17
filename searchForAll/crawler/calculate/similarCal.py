@@ -32,7 +32,8 @@ def splitWords(a):#传入所有标题构成的数组
 			b[i].append(word)
 
 	for k,v in words.items():
-		print  k,v
+		#print  k,v
+		pass
 
 	return b,words
 

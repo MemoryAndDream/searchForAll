@@ -17,7 +17,13 @@ from django.core.wsgi import get_wsgi_application
 import os
 import sys
 
-path = '/home/vobile/PycharmProjects/searchForAll'#这样不好移植，但是用相对路径怎么都是错的，猜想应该是服务器里不一样  因为wsgi的作用是把项目加载给apache2
+path = '/home/meng/searchForAll'#这样不好移植，但是用相对路径怎么都是错的，猜想应该是服务器里不一样  因为wsgi的作用是把项目加载给apache2
+
+import socket
+hostname = socket.gethostname()
+if 'pc0055' in path:
+    path = '/home/vobile/PycharmProjects/searchForAll'
+
 #wsgi是运行在embeded的模式下，即在apache的worker进程内。对wsgi application的修改，需要重启apache才能生效
 if path not in sys.path:
 	sys.path.append(path)

@@ -9,7 +9,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from calculate import similarCal
 
-def keywordSearch(keyword,page='1',type='0',sites=[]):
+def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 	TYPES={'0':'searchEngine','1':'movie','2':'music','3':'novel','4':'news','5':'code'}
 	keywordbf=keyword
 	keyword = urllib.quote(keyword.encode('utf8'))  #输入的是str
@@ -27,7 +27,7 @@ def keywordSearch(keyword,page='1',type='0',sites=[]):
 
 		8:{'tmall':'https://list.tmall.com/search_product.htm?q=%s&s=%s'%(keyword,page*60)},#天猫
 		9:{'suning':'https://search.suning.com/%s/&iy=0&cp=%s'%(keyword,page-1)}, #苏宁
-		10:{'dangdang':'http://search.dangdang.com/?key=%s&act=input&page_index=%s'%(keyword,page)},
+		10:{'dangdang':[keyword,page]},
 		11:{'gome':'https://search.gome.com.cn/search?question=%s&searchType=goods&facets=12gm&page=%s&bws=0&type=json&rank=1'%(keyword,page)},
 
 		#资源搜索
@@ -35,7 +35,6 @@ def keywordSearch(keyword,page='1',type='0',sites=[]):
 		13:{'zimuzu':[keyword,page]},
 		15:{'591mov':'https://591mov.com/zh-hans/search/soe/?c=&s=create_time&p=%s'%{keyword,page}},
 		16:{'56wangpan':'http://www.56wangpan.com/search/kw%spg%s'%(keyword,page)},
-   		17:{'slimego':'http://www.slimego.cn/search.html?q=%s&page=%s&rows=20'%(keyword,page)},
 
 		18:{'torrentz2':[keyword,page]},
 		19:{'panduoduo':[keyword,page]},
@@ -149,7 +148,7 @@ def keywordSearch(keyword,page='1',type='0',sites=[]):
 	#print response
 	#response需要来个智能排序
 	rsAfterSort=None
-	if type == '1': #目前看来商品的结果比较合适用关键词排序
+	if type == '1' or sitesType == 'shoppingSites': #目前看来商品的结果比较合适用关键词排序
 		try:
 			rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
 		except Exception, e:

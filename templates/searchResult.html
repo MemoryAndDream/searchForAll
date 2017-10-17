@@ -20,8 +20,7 @@
 <div>
 
     {% for i in pagenums %}
-    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}">{{ i }}</a>
-
+    <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&site={{ request.GET.sites}}&sitesType={{ request.GET.sitesType}}">{{ i }}</a>
     {% endfor %}
 
 

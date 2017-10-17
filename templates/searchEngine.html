@@ -21,18 +21,18 @@
     <br/>
     <div id="pagenum">
         {% ifnotequal page 1 %}
-        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}">
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:-1}}&type={{type}}&site={{ request.GET.sites}}&sitesType={{ request.GET.sitesType}}">
             <span class="pc_next"> 上一页</span></a>
         {% endifnotequal %}
 
         {% for i in pagenums %}
-        <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}">
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{i}}&type={{type}}&site={{ request.GET.sites}}&sitesType={{ request.GET.sitesType}}">
 
             <span class="pc"> {{ i }}</span>
         </a>
 
         {% endfor %}
-        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:1}}&type={{type}}">
+        <a href="searchResult?kw={{ request.GET.kw}}&page={{page|add:1}}&type={{type}}&site={{ request.GET.sites}}&sitesType={{ request.GET.sitesType}}">
 
             <span class="pc_next"> 下一页</span>
         </a>

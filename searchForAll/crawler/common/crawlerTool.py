@@ -39,7 +39,7 @@ class crawlerTool:
     #基本的页面访问 输出页面
     #getPage(url,data=xx)  getPage(url,requestPars.=xx)
     @staticmethod
-    def getPage(url,proxy=None,data=None, referer = None ,cookie = None ,userAgent = None,cookiePath=None):
+    def getPage(url,proxy=None,data=None, referer = None ,cookie = None ,userAgent = None,cookiePath=None,pageCharset='utf8'):
         # print url
         page_buf = ''
         #参考colander逻辑，链接带"的视作post请求
@@ -48,7 +48,7 @@ class crawlerTool:
             url,data=r[0],r[1]
         i = 0  #重试次数
         for i in range(1):
-            # print url
+           # print url
             try:
                 if proxy:
                     handlers = [urllib2.ProxyHandler({'http': 'http://%s/' % proxy,'https': 'http://%s/' % proxy})]
@@ -70,7 +70,11 @@ class crawlerTool:
                                   'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.0')
                 method.add_header('Accept-Language', 'en-US,en;q=0.5')
                 result = opener.open(method, timeout=10)
-                page_buf = result.read().decode('utf8')
+
+                page_buf = result.read()
+                page_buf=page_buf.decode(pageCharset,'ignore')
+               # print page_buf
+
                 return page_buf
 
             except urllib2.URLError, reason:
