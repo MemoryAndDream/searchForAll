@@ -90,6 +90,7 @@ img {
 .gover_search .search_suggest {
 	z-index: 999;
 	display: none;
+	height:10px /*定死了就不会被撑开了*/
 }
 .gover_search .search_suggest ul{
     width: 526px;
@@ -100,6 +101,7 @@ img {
 	border: 1px solid #ccc;
 	border-top: none;
 	color: #004080;
+
 
 }
 
@@ -112,7 +114,11 @@ img {
 	line-height: 24px;
 	background: #fff;
 	cursor: default;
+	z-index: 999;
+
+
 }
+
 
 .gover_search .search_suggest li.hover {
 	background: #ddd;
