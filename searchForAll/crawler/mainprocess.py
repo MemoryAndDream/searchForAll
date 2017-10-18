@@ -148,9 +148,15 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 	#print response
 	#response需要来个智能排序
 	rsAfterSort=None
-	if type == '1' or sitesType == 'shoppingSites' or  sitesType =='netDiskSites': #目前看来商品的结果比较合适用关键词排序
+	if type == '1' or sitesType == 'shoppingSites' : #目前看来商品的结果比较合适用关键词排序
 		try:
 			rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
+		except Exception, e:
+			print str(e)
+
+	if  sitesType =='netDiskSites':
+		try:
+			rsAfterSort = similarCal.sortBySimilar(response, 'title', firstkeyword=keywordbf,repeat=False)
 		except Exception, e:
 			print str(e)
 	if rsAfterSort:

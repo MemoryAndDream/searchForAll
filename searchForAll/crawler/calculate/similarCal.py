@@ -58,9 +58,11 @@ def compareWords(words1,words2,words):
 
 #算法逻辑：每次取相似度最高的3个匹配，然后基于其中最后一个作为下次匹配的开头  这个以后可以考虑改成每次取相似度大于平均值多少的
 
+#这个有问题，因为网盘类的需要的是第一次的匹配，而不是对比匹配
+
 #初值讲起来应该是关键字
 
-def sortBySimilar(inputDicts,key,firstkeyword=''):
+def sortBySimilar(inputDicts,key,firstkeyword='',repeat=True):
 #先不管字多少  过滤条件应该是固定前几名还是和平均值比较？ 固定的问题就是要精确一次只能pop一个，否则第二名容易差距很大，所以可以结合一下
 	afterSort = []
 	beforeSort=[]
@@ -79,17 +81,23 @@ def sortBySimilar(inputDicts,key,firstkeyword=''):
 		sample = ap[0]
 	else:  #否则 第一个匹配元素需要手动加入，因为在比较中第一个元素不会加入序列
 		afterSort.append(inputDicts[sample[0]])
-	while len(opa)>3:
-		ap = sorted(opa[1:], key=lambda d:compareWords(sample[1],d[1],words),reverse=True) #序号和内容一起排列
-		for a in ap[:3]: #导出前3个序号
-			#print a[0]
+	if repeat:
+		while len(opa)>3:
+			ap = sorted(opa[1:], key=lambda d:compareWords(sample[1],d[1],words),reverse=True) #序号和内容一起排列
+			for a in ap[:3]: #导出前3个序号
+				#print a[0]
+				afterSort.append(inputDicts[a[0]])
+				for i in range(len(opa)):
+					if opa[i][0]==a[0]:
+						opa.pop(i)
+						break
+			sample = ap[2]
+			opa.pop(0)
+	else:
+		for a in ap[1:]:  # 只做一次排序
+			# print a[0]
 			afterSort.append(inputDicts[a[0]])
-			for i in range(len(opa)):
-				if opa[i][0]==a[0]:
-					opa.pop(i)
-					break
-		sample = ap[2]
-		opa.pop(0)
+		return afterSort
 
 	for i in range(len(opa)):
 		afterSort.append(inputDicts[opa[i][0]])

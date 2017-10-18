@@ -50,7 +50,7 @@ def process(keyword,page,website):  #后面需要分类型
 		pageBuf = urlHostParser.make_links_absolute(pageBuf,baseurl)
 		segments = ct.crawlerTool.getXpath(segmentCut,pageBuf)
 		if not segments:
-			print 'no matched segments'
+			print 'no matched segments',website
 			continue
 		for segment in segments:
 			try:
