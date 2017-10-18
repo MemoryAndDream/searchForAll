@@ -28,7 +28,7 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 		8:{'tmall':'https://list.tmall.com/search_product.htm?q=%s&s=%s'%(keyword,page*60)},#天猫
 		9:{'suning':'https://search.suning.com/%s/&iy=0&cp=%s'%(keyword,page-1)}, #苏宁
 		10:{'dangdang':[keyword,page]},
-		11:{'gome':'https://search.gome.com.cn/search?question=%s&searchType=goods&facets=12gm&page=%s&bws=0&type=json&rank=1'%(keyword,page)},
+		11:{'gome':[keyword,page]},
 
 		#资源搜索
 		#12:{'mj0351':[keyword,page]},
@@ -148,7 +148,7 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 	#print response
 	#response需要来个智能排序
 	rsAfterSort=None
-	if type == '1' or sitesType == 'shoppingSites': #目前看来商品的结果比较合适用关键词排序
+	if type == '1' or sitesType == 'shoppingSites' or  sitesType =='netDiskSites': #目前看来商品的结果比较合适用关键词排序
 		try:
 			rsAfterSort = similarCal.sortBySimilar(response,'title',firstkeyword=keywordbf)
 		except Exception, e:

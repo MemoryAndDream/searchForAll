@@ -33,7 +33,26 @@ function demo(data) {
 
         }
 
+function selectAll(sitesType){
+   SITES=new Array();//比如11,22,33
+    var boxes = document.getElementsByName(sitesType);
+    for(i=0;i<boxes.length;i++){
+    boxes[i].checked = true;
+    SITES.push(boxes[i].value);
+    }
+    var otherOptions = $(".moresites");
+    console.log(otherOptions);
+    otherOptions.each(function(){
+    if (this.name != sitesType){
+    this.checked =false;
+    }
+    }
+)
 
+ $('#sites').val(SITES.join(','));
+    $('#sitesType').val(sitesType);
+
+}
 function fillSites(sitesType,siteValue){
 //1、页面加载完成后将参数里的sites值传入input值 join push
   //2、将多选框里的值写入input
@@ -58,6 +77,8 @@ function fillSites(sitesType,siteValue){
 
 
 }
+
+
 
 
 	function getQueryString(name) {

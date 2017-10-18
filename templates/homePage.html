@@ -177,6 +177,7 @@ margin-top:70px;
 }
 
 
+
     </style>
 
 </head>
@@ -196,7 +197,7 @@ margin-top:70px;
 
         <input type="text"
                class="input_search_key" id="gover_search_key"
-               placeholder="请输入关键词直接搜索"/>
+               placeholder="多个网站一起搜,结果根据相似度智能排序"/>
         <button type="submit" class="search_btn" id="search_btn" onclick="doSearchByInput()">搜索</button>
         <div class="search_suggest" id="gov_search_suggest">
             <ul>
@@ -208,35 +209,51 @@ margin-top:70px;
             <label><input name="searchType" type="radio" value="5" id="radio5"/>github </label>
             <label><input name="searchType" type="radio" value="1" id="radio1"/>淘宝+京东+亚马逊 </label>
         </div>
-        <div class="leftAlign"> 更多网站：(制作中)<input id='sites' name="sites" value="" type="hidden"/><input id='sitesType' name="sitesType"
-                                                                                 value="" type="hidden"/>
-            <br/>
-            <div>网盘资源
-                <input class='moresites' name="netDiskSites" type="checkbox" value="19" onclick="onClickHander(this)"/>盘多多
-                <input class='moresites' name="netDiskSites" type="checkbox" value="23" onclick="onClickHander(this)"/>盘搜搜
-                <input class='moresites' name="netDiskSites" type="checkbox" value="24" onclick="onClickHander(this)"/>sosuopan
-                <input class='moresites' name="netDiskSites" type="checkbox" value="25" onclick="onClickHander(this)"/>57fx
-                <input class='moresites' name="netDiskSites" type="checkbox" value="26" onclick="onClickHander(this)"/>史莱姆搜索
+        <div class="leftAlign"> <h5>更多网站任意组合：(点击分类标题全选)</h5><input id='sites' name="sites" value="" type="hidden"/><input id='sitesType'
+                                                                                                        name="sitesType"
+                                                                                                        value=""
+                                                                                                        type="hidden"/>
+            <div><a onclick="selectAll('netDiskSites')"><span style="font-size:23px">网盘资源</span></a>&nbsp;&nbsp;
+                盘多多<input class='moresites' name="netDiskSites" type="checkbox" value="19"
+                          onclick="onClickHander(this)"/>&nbsp;
+                盘搜搜<input class='moresites' name="netDiskSites" type="checkbox" value="23"
+                          onclick="onClickHander(this)"/>&nbsp;
+                sosuopan<input class='moresites' name="netDiskSites" type="checkbox" value="24"
+                               onclick="onClickHander(this)"/>&nbsp;
+                57fx<input class='moresites' name="netDiskSites" type="checkbox" value="25"
+                           onclick="onClickHander(this)"/>&nbsp;
+                史莱姆<input class='moresites' name="netDiskSites" type="checkbox" value="26"
+                          onclick="onClickHander(this)"/>&nbsp;
             </div>
 
-            <div>购物
-                <input class='moresites' name="shoppingSites" type="checkbox" value="8" onclick="onClickHander(this)"/>天猫
-                <input class='moresites' name="shoppingSites" type="checkbox" value="3" onclick="onClickHander(this)"/>淘宝
-                <input class='moresites' name="shoppingSites" type="checkbox" value="4" onclick="onClickHander(this)"/>京东
-                <input class='moresites' name="shoppingSites" type="checkbox" value="5" onclick="onClickHander(this)"/>亚马逊
-                <input class='moresites' name="shoppingSites" type="checkbox" value="10" onclick="onClickHander(this)"/>当当
+            <div><a onclick="selectAll('shoppingSites')"><span style="font-size:23px">购物</span></a>&nbsp;&nbsp;
+                天猫<input class='moresites' name="shoppingSites" type="checkbox" value="8"
+                         onclick="onClickHander(this)"/>&nbsp;
+                淘宝<input class='moresites' name="shoppingSites" type="checkbox" value="3"
+                         onclick="onClickHander(this)"/>&nbsp;
+                京东<input class='moresites' name="shoppingSites" type="checkbox" value="4"
+                         onclick="onClickHander(this)"/>&nbsp;
+                亚马逊<input class='moresites' name="shoppingSites" type="checkbox" value="5"
+                          onclick="onClickHander(this)"/>&nbsp;
+                当当<input class='moresites' name="shoppingSites" type="checkbox" value="10"
+                         onclick="onClickHander(this)"/>&nbsp;
+                国美<input class='moresites' name="shoppingSites" type="checkbox" value="11"
+                         onclick="onClickHander(this)"/>&nbsp;
 
 
             </div>
 
-            <div>代码
-                <input class='moresites' name="CodeSites" type="checkbox" value="7" onclick="onClickHander(this)"/>github
-                <input class='moresites' name="CodeSites" type="checkbox" value="21" onclick="onClickHander(this)"/>searchcode
+            <div><a onclick="selectAll('CodeSites')"><span style="font-size:23px">代码</span></a>&nbsp;&nbsp;
+                github<input class='moresites' name="CodeSites" type="checkbox" value="7"
+                             onclick="onClickHander(this)"/>&nbsp;
+                searchcode<input class='moresites' name="CodeSites" type="checkbox" value="21"
+                                 onclick="onClickHander(this)"/>&nbsp;
             </div>
 
-            <div>旅游
+           <!-- <div><a onclick="selectAll('')">旅游</a>&nbsp;&nbsp;
+                <br/>
 
-            </div>
+            </div>-->
 
         </div>
     </div>
