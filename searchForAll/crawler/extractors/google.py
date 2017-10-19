@@ -6,7 +6,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from HTMLParser import HTMLParser
 #相对导入不能超过最高层
-def process(keyword,page,website):
+def process(keyword,page):
 	url='https://www.google.com/search?q=%s&start=%s&num=100'%(keyword,page*100)
 	urlinsfos=[]
 	#urlinfo1={"url":"http://www.baidu.com/link?url=966OdUyxuwFJoAYx_XGYq7_FiVLcej4qEA3Q84e-lLAtLPRGGHA6tsNFNsTN9zka&wd=&eqid=a64931cc000026c3000000035994fd9e","title":"python Django教程 之模板渲染、循环、条件判断、常用的..._博客园","info":'在 W3School,您将找到许多可以在线编辑并测试的 jQuery 实例。 jQuery 实例jQuery 参考手册 在W3School,您将找到包含所有 jQuery 对象和函数的完整参考手册。 jQuery...'}
