@@ -11,7 +11,7 @@ import traceback
 
 def process(keyword,page):
 	url='http://search.dangdang.com/?key=%s&act=input&page_index=%s'%(keyword,page)
-	urlinsfos=[]
+	urlinfos=[]
 	page = ct.crawlerTool.getPage(url,pageCharset='gb2312')
 	segments = ct.crawlerTool.getXpath('//li[contains(@class,"line")]',page)#这个xpath可以过滤掉很多广告。。
 	#print segments
@@ -36,10 +36,10 @@ def process(keyword,page):
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
 			if urlinfo['title']:
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 		except:#有些奇怪的格式是会解析失败的
 			traceback.print_exc()
-	return urlinsfos
+	return {"urlinfos":urlinfos}
 
 
 

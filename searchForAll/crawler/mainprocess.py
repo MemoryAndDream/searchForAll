@@ -96,7 +96,7 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 	print SITES
 
 	response=[]
-
+	suggestInfos=[]
 	class MyThread(threading.Thread):
 
 		def __init__(self, func, args=()):
@@ -134,7 +134,8 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 		#print t.get_result()
 		rs = t.get_result()
 		if rs:
-			response += rs
+			response += rs.get('urlinfos')#结果数组拼接
+			suggestInfos += rs.get('suggestInfos',[])# 到最后取个前6个之类
 
 
 	#print v
@@ -163,4 +164,4 @@ def keywordSearch(keyword,page='1',type='0',sites=[],sitesType=''):
 		response=rsAfterSort
 
 
-	return response
+	return {"urlinfos":response,"suggestInfos":suggestInfos}

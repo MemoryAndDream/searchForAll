@@ -12,7 +12,7 @@ import json
 
 def process(keyword,page):
 	url='https://s.taobao.com/search?q=%s&s=%s' % (keyword, (page-1)*44)
-	urlinsfos=[]
+	urlinfos=[]
 	page = ct.crawlerTool.getPage(url)
 
 	g_page_config =ct.crawlerTool.getRegex('g_page_config\s*=\s*(.*);',page)
@@ -41,7 +41,7 @@ def process(keyword,page):
 				urlinfo['imglink'] = segment["pic_url"]
 
 				#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 			except:
 				traceback.print_exc()
 
@@ -66,13 +66,13 @@ def process(keyword,page):
 				urlinfo['imglink'] = segment["pic_url"]
 
 				#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 			except:
 				traceback.print_exc()
 
 
 
-	return urlinsfos
+	return {"urlinfos":urlinfos}
 
 
 

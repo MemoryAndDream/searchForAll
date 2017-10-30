@@ -23,7 +23,7 @@ def process(url):
 		except:
 			print('error')
 			traceback.print_exc()
-	return urlinsfos
+	return {"urlinsfos":urlinsfos}
 
 
 #需要去testSiteConfig.py里测试

@@ -40,7 +40,7 @@ def process(keyword,page,website):  #后面需要分类型
 		titleCut =  siteconf.get(extractor,'title')
 		urlCut = siteconf.get(extractor, 'url')
 		infoCuts =  siteconf.get(extractor, 'info')
-		urlinsfos=[]
+		urlinfos=[]
 		if urlBac == url:#如果是一样的链接就不重复打开了
 			pageBuf = ct.crawlerTool.getPage(url)#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
 		else:
@@ -66,11 +66,11 @@ def process(keyword,page,website):  #后面需要分类型
 				for infoCut in infoCuts.split(';'):
 					urlinfo['info'] += ' '.join(ct.crawlerTool.getXpath(infoCut, segment))  #info 作拼接处理
 				#print urlinfo['url'], urlinfo['title'], urlinfo['info']
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 			except Exception,e:
 				traceback.print_exc()
 
-		return urlinsfos
+		return {"urlinfos":urlinfos}
 
 
 

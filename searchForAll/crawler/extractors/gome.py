@@ -11,7 +11,7 @@ import traceback
 
 def process(keyword,page):#国美的价格是用的ajax请求生成的，卧槽
 	url='https://search.gome.com.cn/search?question=%s&searchType=goods&&page=%s'%(keyword,page)
-	urlinsfos=[]
+	urlinfos=[]
 	page = ct.crawlerTool.getPage(url)
 	segments = ct.crawlerTool.getXpath('//div[contains(@class,"item-tab")]',page)#这个xpath可以过滤掉很多广告。。
 	print len(segments)
@@ -43,10 +43,10 @@ def process(keyword,page):#国美的价格是用的ajax请求生成的，卧槽
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
 			if urlinfo['title']:
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 		except:#有些奇怪的格式是会解析失败的
 			traceback.print_exc()
-	return urlinsfos
+	return {"urlinfos":urlinfos}
 
 
 

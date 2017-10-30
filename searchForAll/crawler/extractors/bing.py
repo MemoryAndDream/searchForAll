@@ -13,7 +13,7 @@ sys.setdefaultencoding('utf-8')
 #相对导入不能超过最高层
 def process(keyword,page):
 	url='https://www.bing.com/search?q=%s&pc=MOZI&form=MOZSBR&first=%s&FORM=PERE%s'%(keyword,page*10+1,page)
-	urlinsfos=[]#bing页面结果与百度不同 百度输出已经是\uxxx格式了 bing还是\xe1格式(str) 所以需要先解码成unicode
+	urlinfos=[]#bing页面结果与百度不同 百度输出已经是\uxxx格式了 bing还是\xe1格式(str) 所以需要先解码成unicode
 	page = ct.crawlerTool.getPage(url)#print HTMLParser().unescape('&#183;').encode('unicode-escape').decode('string_escape')是乱码
 	#print page
 	segments = ct.crawlerTool.getXpath('//li[@class="b_algo"]',page)#这个xpath可以过滤掉很多广告。。
@@ -31,11 +31,11 @@ def process(keyword,page):
 			urlinfo['title'] = title
 			urlinfo['info'] = ct.crawlerTool.getXpath('//div[@class="b_caption"]', segment)[0]
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info']
-			urlinsfos.append(urlinfo)
+			urlinfos.append(urlinfo)
 		except:
 			traceback.print_exc()
 
-	return urlinsfos
+	return {"urlinfos":urlinfos}
 
 
 

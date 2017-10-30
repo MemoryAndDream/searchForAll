@@ -36,7 +36,8 @@ def searchResult(request):
 	#urlinfos.append(urlinfo1)
 	list=[i+1 for i in range(8)]
 	context = {}
-	context['urlinfos'] = urlinfos
+	context['urlinfos'] = urlinfos["urlinfos"]
+	context['suggestInfos'] = urlinfos["suggestInfos"]
 	context['pagenums'] = list
 	context['type'] = type
 	context['page'] = int(page)

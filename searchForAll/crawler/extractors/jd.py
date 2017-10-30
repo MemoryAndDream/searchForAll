@@ -11,7 +11,7 @@ import traceback
 
 def process(keyword,page):
 	url='https://search.jd.com/Search?keyword=%s&page=%s&enc=utf-8'%(keyword,page*2+1)
-	urlinsfos=[]
+	urlinfos=[]
 	page = ct.crawlerTool.getPage(url)
 	segments = ct.crawlerTool.getXpath("//li[@class='gl-item']",page)#这个xpath可以过滤掉很多广告。。
 	#print segments
@@ -47,10 +47,10 @@ def process(keyword,page):
 
 			#print urlinfo['url'], urlinfo['title'], urlinfo['info'],urlinfo['imglink']
 			if urlinfo['title']:
-				urlinsfos.append(urlinfo)
+				urlinfos.append(urlinfo)
 		except:#有些奇怪的格式是会解析失败的
 			pass
-	return urlinsfos
+	return {"urlinfos":urlinfos}
 
 
 

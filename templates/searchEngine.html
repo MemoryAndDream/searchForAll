@@ -5,7 +5,7 @@
 <div class="maincontent">
     <ul>
         {% for urlinfo in urlinfos %}
-        <li><h3><a href="{{ urlinfo.url }}">{{ urlinfo.title }}</a>
+        <li><h3><a href="{{ urlinfo.url }}" target="_blank">{{ urlinfo.title }}</a>
         </h3>
             <div class="urlinfo"> {{ urlinfo.info|safe }}</div>
             {% if urlinfo.imglink %}
